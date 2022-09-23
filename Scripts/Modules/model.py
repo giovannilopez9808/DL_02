@@ -24,6 +24,7 @@ class CycleGAN_model:
         for epoch in range(1,
                            self.params["epochs"]+1):
             start = time()
+            print(f"Epoch {epoch}")
             for i, (image_x, image_y) in enumerate(Dataset.zip((dog_dataset,
                                                                 cat_dataset))):
                 self.model.train_step(image_x,

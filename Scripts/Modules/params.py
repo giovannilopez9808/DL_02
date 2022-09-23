@@ -6,8 +6,14 @@ def get_params() -> dict:
         "dataset": {
             "train": {
                 "image_size": (256, 256),
-                "batch_size": 9,
+                "batch_size": 1,
                 "shuffle": True,
+                "labels": None,
+            },
+            "test": {
+                "image_size": (256, 256),
+                "batch_size": 1,
+                "shuffle": False,
                 "labels": None,
             }
         },
@@ -15,7 +21,8 @@ def get_params() -> dict:
             "input_dim": (256, 256, 3),
             "r_loss_factor": 100000,
             "latent_dim": 150,
+            "summary": True,
         },
-        "epochs": 400,
+        "epochs": 10,
     }
     return params

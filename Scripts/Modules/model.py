@@ -1,8 +1,6 @@
-from keras.callbacks import ModelCheckpoint
 from .pix2pix import VAE_pix2pix_model
 from tensorflow.data import Dataset
-from keras.optimizers import Adam
-from tensorflow import function
+from pandas import DataFrame
 from os.path import join
 from time import time
 from sys import exit
@@ -23,7 +21,8 @@ class CycleGAN_model:
     # @function
     def run(self,
             dog_dataset: Dataset,
-            cat_dataset: Dataset) -> None:
+            cat_dataset: Dataset) -> DataFrame:
+        history = DataFrame()
         for epoch in range(1,
                            self.params["epochs"]+1):
             start = time()
@@ -32,7 +31,12 @@ class CycleGAN_model:
                                                                 cat_dataset))):
                 history = self.model.train_step(image_x,
                                                 image_y)
-                print(history["loss_vae_x"].numpy())
+                values = map(lambda loss: loss.numpy(),
+                             history.values())
+                history = DataFrame(values,
+                                    index=history.keys())
+                history = history.T
+                print(history)
                 exit(1)
                 if i % 100 == 0:
                     print('.', end='')
@@ -46,3 +50,4 @@ class CycleGAN_model:
             final_time = time()-start
             print('Time taken for epoch {} is {} sec\n'.format(epoch + 1,
                                                                final_time))
+        return history

@@ -1,12 +1,11 @@
 g-0-3
-Fri 23 Sep 2022 10:17:07 PM CDT
-2022-09-23 22:17:13.178440: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+Fri 23 Sep 2022 11:05:42 PM CDT
+2022-09-23 23:05:48.315263: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-09-23 22:17:14.200989: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory:  -> device: 0, name: NVIDIA TITAN RTX, pci bus id: 0000:5e:00.0, compute capability: 7.5
-2022-09-23 22:17:14.201676: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 22844 MB memory:  -> device: 1, name: NVIDIA TITAN RTX, pci bus id: 0000:86:00.0, compute capability: 7.5
+2022-09-23 23:05:49.307281: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory:  -> device: 0, name: NVIDIA TITAN RTX, pci bus id: 0000:5e:00.0, compute capability: 7.5
+2022-09-23 23:05:49.307979: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 22844 MB memory:  -> device: 1, name: NVIDIA TITAN RTX, pci bus id: 0000:86:00.0, compute capability: 7.5
 Found 2501 files belonging to 1 classes.
 Found 2501 files belonging to 1 classes.
-Found 12500 files belonging to 1 classes.
 Model: "encoder"
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
@@ -77,6 +76,16 @@ Total params: 2,587,267
 Trainable params: 2,586,883
 Non-trainable params: 384
 _________________________________________________________________
+2022-09-23 23:06:15.329002: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8302
+2022-09-23 23:06:15.996219: I tensorflow/core/platform/default/subprocess.cc:304] Start cannot spawn child process: No such file or directory
 Epoch 1
-{'loss_vae_x': <tf.Tensor 'StatefulPartitionedCall:1' shape=() dtype=float32>, 're_vae_x_loss': <tf.Tensor 'StatefulPartitionedCall:2' shape=() dtype=float32>, 'kl_vae_x_loss': <tf.Tensor 'StatefulPartitionedCall:0' shape=() dtype=float32>}
-Fri 23 Sep 2022 10:17:36 PM CDT
+----------------------------------------
+<class 'tensorflow.python.framework.ops.Tensor'>
+----------------------------------------
+['OVERLOADABLE_OPERATORS', '_USE_EQUALITY', '__abs__', '__add__', '__and__', '__annotations__', '__array__', '__array_priority__', '__bool__', '__class__', '__copy__', '__delattr__', '__dict__', '__dir__', '__div__', '__doc__', '__eq__', '__floordiv__', '__format__', '__ge__', '__getattr__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__invert__', '__iter__', '__le__', '__len__', '__lt__', '__matmul__', '__mod__', '__module__', '__mul__', '__ne__', '__neg__', '__new__', '__nonzero__', '__or__', '__pow__', '__radd__', '__rand__', '__rdiv__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rmatmul__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__tf_tracing_type__', '__truediv__', '__weakref__', '__xor__', '_as_node_def_input', '_as_tf_output', '_c_api_shape', '_consumers', '_create_with_tf_output', '_disallow_bool_casting', '_disallow_in_graph_mode', '_disallow_iteration', '_disallow_when_autograph_disabled', '_disallow_when_autograph_enabled', '_disallow_when_autograph_unavailable', '_dtype', '_id', '_matmul', '_name', '_numpy_style_getitem', '_op', '_override_operator', '_rank', '_shape', '_shape_as_list', '_shape_tuple', '_shape_val', '_tf_api_names', '_tf_api_names_v1', '_tf_output', '_value_index', '_with_index_add', '_with_index_max', '_with_index_min', '_with_index_update', 'consumers', 'device', 'dtype', 'eval', 'experimental_ref', 'get_shape', 'graph', 'name', 'op', 'ref', 'set_shape', 'shape', 'value_index']
+----------------------------------------
+<class 'tensorflow.python.framework.ops.Tensor'>
+----------------------------------------
+['OVERLOADABLE_OPERATORS', '_USE_EQUALITY', '__abs__', '__add__', '__and__', '__annotations__', '__array__', '__array_priority__', '__bool__', '__class__', '__copy__', '__delattr__', '__dict__', '__dir__', '__div__', '__doc__', '__eq__', '__floordiv__', '__format__', '__ge__', '__getattr__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__invert__', '__iter__', '__le__', '__len__', '__lt__', '__matmul__', '__mod__', '__module__', '__mul__', '__ne__', '__neg__', '__new__', '__nonzero__', '__or__', '__pow__', '__radd__', '__rand__', '__rdiv__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rmatmul__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__tf_tracing_type__', '__truediv__', '__weakref__', '__xor__', '_as_node_def_input', '_as_tf_output', '_c_api_shape', '_consumers', '_create_with_tf_output', '_disallow_bool_casting', '_disallow_in_graph_mode', '_disallow_iteration', '_disallow_when_autograph_disabled', '_disallow_when_autograph_enabled', '_disallow_when_autograph_unavailable', '_dtype', '_id', '_matmul', '_name', '_numpy_style_getitem', '_op', '_override_operator', '_rank', '_shape', '_shape_as_list', '_shape_tuple', '_shape_val', '_tf_api_names', '_tf_api_names_v1', '_tf_output', '_value_index', '_with_index_add', '_with_index_max', '_with_index_min', '_with_index_update', 'consumers', 'device', 'dtype', 'eval', 'experimental_ref', 'get_shape', 'graph', 'name', 'op', 'ref', 'set_shape', 'shape', 'value_index']
+98683.96
+Fri 23 Sep 2022 11:06:19 PM CDT

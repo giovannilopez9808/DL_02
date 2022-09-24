@@ -32,7 +32,7 @@ class CycleGAN_model:
                                                                 cat_dataset))):
                 history = self.model.train_step(image_x,
                                                 image_y)
-                print(history)
+                print(history["loss_vae_x"].numpy())
                 exit(1)
                 if i % 100 == 0:
                     print('.', end='')

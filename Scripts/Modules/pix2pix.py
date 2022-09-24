@@ -279,7 +279,7 @@ class VAE_pix2pix_model(Model):
         self.vae_y.reconstruction_loss_tracker.update_state(r_loss)
         self.vae_y.kl_loss_tracker.update_state(kl_loss)
         loss_history = {
-            # "loss_vae_x": self.vae_x.total_loss_tracker.result(),
+            "loss_vae_x": self.vae_x.total_loss_tracker.result(),
             # "re_vae_x_loss": self.vae_x.reconstruction_loss_tracker.result(),
             # "kl_vae_x_loss": self.vae_x.kl_loss_tracker.result(),
             # "loss_vae_y": self.vae_y.total_loss_tracker.result().numpy(),

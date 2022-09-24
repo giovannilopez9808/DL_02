@@ -28,12 +28,14 @@ from tensorflow import (GradientTape,
 from keras.backend import random_normal
 from keras.optimizers import Adam
 from keras.metrics import Mean
+from keras.losses import Loss
 from numpy import (array,
                    prod)
 from keras import Model
 loss_obj = BinaryCrossentropy(from_logits=True)
 OUTPUT_CHANNELS = 3
 LAMBDA = 10
+
 
 class VAE_pix2pix_model(Model):
     def __init__(self,
@@ -188,12 +190,16 @@ class VAE_pix2pix_model(Model):
             )
             # calculate the loss
             gen_g_loss = generator_loss(disc_fake_y)
+            print("-"*40)
+            print(type(gen_g_loss))
+            print("-"*40)
+            print(dir(gen_g_loss))
             gen_f_loss = generator_loss(disc_fake_x)
-            cycle_loss_x = calc_cycle_loss(
+            cycle_loss_x = calc_cycle_loss()(
                 pred_x,
                 cycled_x
             )
-            cycle_loss_y = calc_cycle_loss(
+            cycle_loss_y = calc_cycle_loss()(
                 pred_y,
                 cycled_y
             )
@@ -202,12 +208,12 @@ class VAE_pix2pix_model(Model):
             # Total generator loss = adversarial loss + cycle loss
             total_gen_g_loss = gen_g_loss
             total_gen_g_loss += total_cycle_loss
-            total_gen_g_loss += identity_loss(pred_y,
-                                              same_y)
+            total_gen_g_loss += identity_loss()(pred_y,
+                                                same_y)
             total_gen_f_loss = gen_f_loss
             total_gen_f_loss += total_cycle_loss
-            total_gen_g_loss += identity_loss(pred_x,
-                                              same_x)
+            total_gen_g_loss += identity_loss()(pred_x,
+                                                same_x)
             disc_x_loss = discriminator_loss(disc_real_x,
                                              disc_fake_x)
             disc_y_loss = discriminator_loss(disc_real_y,
@@ -273,14 +279,14 @@ class VAE_pix2pix_model(Model):
         self.vae_y.reconstruction_loss_tracker.update_state(r_loss)
         self.vae_y.kl_loss_tracker.update_state(kl_loss)
         loss_history = {
-            "loss_vae_x": self.vae_x.total_loss_tracker.result(),
-            "re_vae_x_loss": self.vae_x.reconstruction_loss_tracker.result(),
-            "kl_vae_x_loss": self.vae_x.kl_loss_tracker.result(),
+            # "loss_vae_x": self.vae_x.total_loss_tracker.result(),
+            # "re_vae_x_loss": self.vae_x.reconstruction_loss_tracker.result(),
+            # "kl_vae_x_loss": self.vae_x.kl_loss_tracker.result(),
             # "loss_vae_y": self.vae_y.total_loss_tracker.result().numpy(),
             # "re_vae_y_loss": self.vae_y.reconstruction_loss_tracker.result().numpy(),
             # "kl_vae_y_loss": self.vae_y.kl_loss_tracker.result().numpy(),
-            # "loss g": total_gen_g_loss.numpy(),
-            # "loss f": total_gen_f_loss.numpy(),
+            "loss g": total_gen_g_loss,
+            "loss f": total_gen_f_loss,
         }
         return loss_history
 
@@ -301,16 +307,26 @@ def generator_loss(generated):
     return loss
 
 
-def calc_cycle_loss(real_image,
-                    cycled_image):
-    loss = reduce_mean(abs(real_image - cycled_image))
-    return LAMBDA * loss
+class calc_cycle_loss(Loss):
+    def __init__(self):
+        super().__init__()
+
+    def call(self,
+             real_image,
+             cycled_image):
+        loss = reduce_mean(abs(real_image - cycled_image))
+        return LAMBDA * loss
 
 
-def identity_loss(real_image,
-                  same_image):
-    loss = reduce_mean(abs(real_image - same_image))
-    return LAMBDA * 0.5 * loss
+class identity_loss(Loss):
+    def __init__(self):
+        super().__init__()
+
+    def call(self,
+             real_image,
+             same_image):
+        loss = reduce_mean(abs(real_image - same_image))
+        return LAMBDA * 0.5 * loss
 
 
 class VAE(Model):

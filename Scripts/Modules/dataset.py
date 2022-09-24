@@ -21,7 +21,7 @@ class dataset_model:
 
     def _read_dataset(self) -> tuple:
         self._read_train_dataset()
-        self._read_test_dataset()
+        # self._read_test_dataset()
 
     def _read_train_dataset(self) -> Dataset:
         path = join(self.params["path data"],
@@ -61,7 +61,7 @@ class dataset_model:
         dataset = dataset.map(self._random_jitter,
                               num_parallel_calls=self.autotune)
         dataset = self._normalization(dataset)
-        dataset = dataset.shuffle(100000).cache().prefetch(100000)
+        dataset = dataset.shuffle(5000).cache().prefetch(5000)
         return dataset
 
     def _normalization(self,

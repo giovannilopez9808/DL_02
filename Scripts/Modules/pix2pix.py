@@ -13,6 +13,7 @@ from keras.layers import (BatchNormalization,
                           Dense)
 from keras.losses import (BinaryCrossentropy,
                           MeanAbsoluteError)
+from tensorflow.compat.v1 import Session
 from tensorflow import (GradientTape,
                         reduce_mean,
                         zeros_like,
@@ -20,6 +21,7 @@ from tensorflow import (GradientTape,
                         ones_like,
                         function,
                         square,
+                        compat,
                         shape,
                         exp,
                         abs)
@@ -32,7 +34,6 @@ from keras import Model
 loss_obj = BinaryCrossentropy(from_logits=True)
 OUTPUT_CHANNELS = 3
 LAMBDA = 10
-
 
 class VAE_pix2pix_model(Model):
     def __init__(self,
@@ -275,11 +276,11 @@ class VAE_pix2pix_model(Model):
             "loss_vae_x": self.vae_x.total_loss_tracker.result(),
             "re_vae_x_loss": self.vae_x.reconstruction_loss_tracker.result(),
             "kl_vae_x_loss": self.vae_x.kl_loss_tracker.result(),
-            "loss_vae_y": self.vae_y.total_loss_tracker.result(),
-            "re_vae_y_loss": self.vae_y.reconstruction_loss_tracker.result(),
-            "kl_vae_y_loss": self.vae_y.kl_loss_tracker.result(),
-            "loss g": total_gen_g_loss,
-            "loss f": total_gen_f_loss,
+            # "loss_vae_y": self.vae_y.total_loss_tracker.result().numpy(),
+            # "re_vae_y_loss": self.vae_y.reconstruction_loss_tracker.result().numpy(),
+            # "kl_vae_y_loss": self.vae_y.kl_loss_tracker.result().numpy(),
+            # "loss g": total_gen_g_loss.numpy(),
+            # "loss f": total_gen_f_loss.numpy(),
         }
         return loss_history
 

@@ -2,9 +2,10 @@ from keras.callbacks import ModelCheckpoint
 from .pix2pix import VAE_pix2pix_model
 from tensorflow.data import Dataset
 from keras.optimizers import Adam
+from tensorflow import function
 from os.path import join
 from time import time
-
+from sys import exit
 
 class CycleGAN_model:
     def __init__(self,
@@ -17,7 +18,7 @@ class CycleGAN_model:
         self.model = VAE_pix2pix_model(
             **params["VAE"]
         )
-
+    @function
     def run(self,
             dog_dataset: Dataset,
             cat_dataset: Dataset) -> None:
@@ -27,9 +28,11 @@ class CycleGAN_model:
             print(f"Epoch {epoch}")
             for i, (image_x, image_y) in enumerate(Dataset.zip((dog_dataset,
                                                                 cat_dataset))):
-                self.model.train_step(image_x,
+                history=self.model.train_step(image_x,
                                       image_y)
-                if i % 10 == 0:
+                print(history)
+                exit(1)
+                if i % 100 == 0:
                     print('.', end='')
             # Using a consistent image (sample_horse)
             # so that the progress of the model

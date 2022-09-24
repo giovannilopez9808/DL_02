@@ -1,0 +1,82 @@
+g-0-3
+Fri 23 Sep 2022 10:17:07 PM CDT
+2022-09-23 22:17:13.178440: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-09-23 22:17:14.200989: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory:  -> device: 0, name: NVIDIA TITAN RTX, pci bus id: 0000:5e:00.0, compute capability: 7.5
+2022-09-23 22:17:14.201676: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 22844 MB memory:  -> device: 1, name: NVIDIA TITAN RTX, pci bus id: 0000:86:00.0, compute capability: 7.5
+Found 2501 files belonging to 1 classes.
+Found 2501 files belonging to 1 classes.
+Found 12500 files belonging to 1 classes.
+Model: "encoder"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ model (Functional)          (None, 150)               2571350   
+                                                                 
+=================================================================
+Total params: 2,571,350
+Trainable params: 2,570,838
+Non-trainable params: 512
+_________________________________________________________________
+Model: "sampler"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ model_1 (Functional)        [(None, 150),             45300     
+                              (None, 150),                       
+                              (None, 150)]                       
+                                                                 
+=================================================================
+Total params: 45,300
+Trainable params: 45,300
+Non-trainable params: 0
+_________________________________________________________________
+Model: "decoder"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ model_2 (Functional)        (None, 256, 256, 3)       2587267   
+                                                                 
+=================================================================
+Total params: 2,587,267
+Trainable params: 2,586,883
+Non-trainable params: 384
+_________________________________________________________________
+Model: "encoder_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ model_3 (Functional)        (None, 150)               2571350   
+                                                                 
+=================================================================
+Total params: 2,571,350
+Trainable params: 2,570,838
+Non-trainable params: 512
+_________________________________________________________________
+Model: "sampler_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ model_4 (Functional)        [(None, 150),             45300     
+                              (None, 150),                       
+                              (None, 150)]                       
+                                                                 
+=================================================================
+Total params: 45,300
+Trainable params: 45,300
+Non-trainable params: 0
+_________________________________________________________________
+Model: "decoder_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ model_5 (Functional)        (None, 256, 256, 3)       2587267   
+                                                                 
+=================================================================
+Total params: 2,587,267
+Trainable params: 2,586,883
+Non-trainable params: 384
+_________________________________________________________________
+Epoch 1
+{'loss_vae_x': <tf.Tensor 'StatefulPartitionedCall:1' shape=() dtype=float32>, 're_vae_x_loss': <tf.Tensor 'StatefulPartitionedCall:2' shape=() dtype=float32>, 'kl_vae_x_loss': <tf.Tensor 'StatefulPartitionedCall:0' shape=() dtype=float32>}
+Fri 23 Sep 2022 10:17:36 PM CDT

@@ -1,22 +1,31 @@
 from keras.utils import image_dataset_from_directory
-from tensorflow.image import (random_flip_left_right,
-                              ResizeMethod,
-                              random_crop,
-                              resize)
-from tensorflow.data import (AUTOTUNE,
-                             Dataset)
 from tensorflow.keras import layers
-from tensorflow import (function,
-                        Tensor)
+from tensorflow.image import (
+    random_flip_left_right,
+    ResizeMethod,
+    random_crop,
+    resize
+)
+from tensorflow import Tensor
+from tensorflow.data import (
+    AUTOTUNE,
+    Dataset
+)
 from os.path import join
 normalization_layer = layers.experimental.preprocessing.Rescaling(1./255)
 
 
 class dataset_model:
+    """
+    -
+    """
+
     def __init__(self,
                  params: dict) -> None:
         self.autotune = AUTOTUNE
         self.params = params
+        self.train = None
+        self.test = None
         self._read_dataset()
 
     def _read_dataset(self) -> tuple:
@@ -34,13 +43,15 @@ class dataset_model:
             directory=dog_path,
             **self.params["dataset"]["train"],
         )
-        self.dog_train = self._normalization_train_dataset(dataset)
+        dog_dataset = self._normalization_train_dataset(dataset)
         dataset = image_dataset_from_directory(
             directory=cat_path,
             seed=2022,
             **self.params["dataset"]["train"],
         )
-        self.cat_train = self._normalization_train_dataset(dataset)
+        cat_dataset = self._normalization_train_dataset(dataset)
+        self.train = Dataset.zip((dog_dataset,
+                                  cat_dataset))
 
     def _read_test_dataset(self) -> Dataset:
         path = join(self.params["path data"],
@@ -61,7 +72,7 @@ class dataset_model:
         dataset = dataset.map(self._random_jitter,
                               num_parallel_calls=self.autotune)
         dataset = self._normalization(dataset)
-        dataset = dataset.prefetch(12500).repeat()
+        # dataset = dataset.prefetch(12500).repeat()
         return dataset
 
     def _normalization(self,

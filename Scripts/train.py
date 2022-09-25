@@ -6,5 +6,7 @@ from Modules.params import get_params
 params = get_params()
 dataset = dataset_model(params)
 model = CycleGAN_model(params)
-model.run(dataset.dog_train,
+history=model.run(dataset.dog_train,
           dataset.cat_train)
+history.to_csv("../history.csv",
+               index=False)

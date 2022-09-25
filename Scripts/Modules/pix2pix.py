@@ -129,23 +129,23 @@ class VAE_pix2pix_model(Model):
             z, z_mean, z_log_var = self.vae_x.sampler_model(vae_x)
             pred_x = self.vae_x.decoder_model(z)
             # loss
-            r_loss = self.vae_x.r_loss_factor * self.vae_x.mae(real_x,
+            r_loss_x = self.vae_x.r_loss_factor * self.vae_x.mae(real_x,
                                                                pred_x)
-            kl_loss = -0.5 * (1 + z_log_var - square(z_mean) - exp(z_log_var))
-            kl_loss = reduce_mean(reduce_sum(kl_loss,
+            kl_loss_x = -0.5 * (1 + z_log_var - square(z_mean) - exp(z_log_var))
+            kl_loss_x = reduce_mean(reduce_sum(kl_loss_x,
                                              axis=1))
-            vae_loss_x = r_loss + kl_loss
+            vae_loss_x = r_loss_x + kl_loss_x
 
             vae_y = self.vae_y.encoder_model(real_y)
             z, z_mean, z_log_var = self.vae_y.sampler_model(vae_y)
             pred_y = self.vae_y.decoder_model(z)
             # loss
-            r_loss = self.vae_y.r_loss_factor * self.vae_y.mae(real_y,
+            r_loss_y = self.vae_y.r_loss_factor * self.vae_y.mae(real_y,
                                                                pred_y)
-            kl_loss = -0.5 * (1 + z_log_var - square(z_mean) - exp(z_log_var))
-            kl_loss = reduce_mean(reduce_sum(kl_loss,
+            kl_loss_y = -0.5 * (1 + z_log_var - square(z_mean) - exp(z_log_var))
+            kl_loss_y = reduce_mean(reduce_sum(kl_loss_y,
                                              axis=1))
-            vae_loss_y = r_loss + kl_loss
+            vae_loss_y = r_loss_y + kl_loss_y
             vae_loss = vae_loss_x+vae_loss_y
             fake_y = self.generator_g(
                 pred_x,
@@ -190,10 +190,6 @@ class VAE_pix2pix_model(Model):
             )
             # calculate the loss
             gen_g_loss = generator_loss(disc_fake_y)
-            print("-"*40)
-            print(type(gen_g_loss))
-            print("-"*40)
-            print(dir(gen_g_loss))
             gen_f_loss = generator_loss(disc_fake_x)
             cycle_loss_x = calc_cycle_loss()(
                 pred_x,
@@ -271,20 +267,20 @@ class VAE_pix2pix_model(Model):
                 self.vae_y.trainable_weights)
         )
         # compute progress
-        self.vae_x.total_loss_tracker.update_state(vae_loss)
-        self.vae_x.reconstruction_loss_tracker.update_state(r_loss)
-        self.vae_x.kl_loss_tracker.update_state(kl_loss)
+        self.vae_x.total_loss_tracker.update_state(vae_loss_x)
+        self.vae_x.reconstruction_loss_tracker.update_state(r_loss_x)
+        self.vae_x.kl_loss_tracker.update_state(kl_loss_y)
 
-        self.vae_y.total_loss_tracker.update_state(vae_loss)
-        self.vae_y.reconstruction_loss_tracker.update_state(r_loss)
-        self.vae_y.kl_loss_tracker.update_state(kl_loss)
+        self.vae_y.total_loss_tracker.update_state(vae_loss_y)
+        self.vae_y.reconstruction_loss_tracker.update_state(r_loss_y)
+        self.vae_y.kl_loss_tracker.update_state(kl_loss_y)
         loss_history = {
             "loss_vae_x": self.vae_x.total_loss_tracker.result(),
-            # "re_vae_x_loss": self.vae_x.reconstruction_loss_tracker.result(),
-            # "kl_vae_x_loss": self.vae_x.kl_loss_tracker.result(),
-            # "loss_vae_y": self.vae_y.total_loss_tracker.result().numpy(),
-            # "re_vae_y_loss": self.vae_y.reconstruction_loss_tracker.result().numpy(),
-            # "kl_vae_y_loss": self.vae_y.kl_loss_tracker.result().numpy(),
+            "re_vae_x_loss": self.vae_x.reconstruction_loss_tracker.result(),
+            "kl_vae_x_loss": self.vae_x.kl_loss_tracker.result(),
+            "loss_vae_y": self.vae_y.total_loss_tracker.result(),
+            "re_vae_y_loss": self.vae_y.reconstruction_loss_tracker.result(),
+            "kl_vae_y_loss": self.vae_y.kl_loss_tracker.result(),
             "loss g": total_gen_g_loss,
             "loss f": total_gen_f_loss,
         }

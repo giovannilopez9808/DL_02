@@ -61,7 +61,7 @@ class dataset_model:
         dataset = dataset.map(self._random_jitter,
                               num_parallel_calls=self.autotune)
         dataset = self._normalization(dataset)
-        dataset = dataset.shuffle(5000).cache().prefetch(5000)
+        dataset = dataset.prefetch(12500).repeat()
         return dataset
 
     def _normalization(self,

@@ -114,7 +114,7 @@ class VAE_pix2pix_model(Model):
         )
         # if a checkpoint exists, restore the latest checkpoint.
         if self.checkpoint.latest_checkpoint:
-            self.checkpoint.restore(self.checkpoint.latest_checkpoint)
+            ckpt.restore(self.checkpoint.latest_checkpoint)
             print('Latest checkpoint restored!!')
 
     @function
@@ -269,7 +269,7 @@ class VAE_pix2pix_model(Model):
         # compute progress
         self.vae_x.total_loss_tracker.update_state(vae_loss_x)
         self.vae_x.reconstruction_loss_tracker.update_state(r_loss_x)
-        self.vae_x.kl_loss_tracker.update_state(kl_loss_y)
+        self.vae_x.kl_loss_tracker.update_state(kl_loss_x)
 
         self.vae_y.total_loss_tracker.update_state(vae_loss_y)
         self.vae_y.reconstruction_loss_tracker.update_state(r_loss_y)
@@ -281,8 +281,8 @@ class VAE_pix2pix_model(Model):
             "loss_vae_y": self.vae_y.total_loss_tracker.result(),
             "re_vae_y_loss": self.vae_y.reconstruction_loss_tracker.result(),
             "kl_vae_y_loss": self.vae_y.kl_loss_tracker.result(),
-            "loss g": total_gen_g_loss,
-            "loss f": total_gen_f_loss,
+            "loss_g": total_gen_g_loss,
+            "loss_f": total_gen_f_loss,
         }
         return loss_history
 

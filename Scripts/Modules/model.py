@@ -37,7 +37,7 @@ class CycleGAN_model:
                                       history])
                 if i % 1 == 0:
                     print(history)
-                    print('.', end='')
+                    # print('.', end='')
             if (epoch + 1) % 5 == 0:
                 _ = self.model.checkpoint.save()
                 print(f'\nSaving checkpoint  epoch {epoch+1}')

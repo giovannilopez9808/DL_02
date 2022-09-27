@@ -24,7 +24,7 @@ class CycleGAN_model:
                            self.params["epochs"]+1):
             start = time()
             print(f"Epoch {epoch}")
-            for i, (image_x, image_y) in dataset.shuffle(2022).take(10).enumerate():
+            for i, (image_x, image_y) in dataset.shuffle(2022).take(100).enumerate():
                 i = i.numpy()
                 history = self.model.train_step(image_x,
                                                 image_y)
@@ -36,7 +36,7 @@ class CycleGAN_model:
                 history.index = [i]
                 history_all = concat([history_all,
                                       history])
-                if i % 1 == 0:
+                if i % 10 == 0:
                     print(history)
                     # print('.', end='')
             if (epoch + 1) % 5 == 0:

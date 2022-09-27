@@ -24,7 +24,7 @@ class CycleGAN_model:
                            self.params["epochs"]+1):
             start = time()
             print(f"Epoch {epoch}")
-            for i, (image_x, image_y) in dataset.shuffle(2022).take(1024).enumerate():
+            for i, (image_x, image_y) in dataset.shuffle(2022).take(10).enumerate():
                 history = self.model.train_step(image_x,
                                                 image_y)
                 values = map(lambda loss: loss.numpy(),
@@ -35,12 +35,13 @@ class CycleGAN_model:
                 history.index = [i]
                 history_all = concat([history_all,
                                       history])
-                if i % 128 == 0:
+                if i % 1 == 0:
+                    print(history)
                     print('.', end='')
             if (epoch + 1) % 5 == 0:
                 _ = self.model.checkpoint.save()
                 print(f'\nSaving checkpoint  epoch {epoch+1}')
             final_time = time()-start
             print('\nTime taken for epoch {} is {} sec\n'.format(epoch + 1,
-                                                               final_time))
+                                                                 final_time))
         return history_all

@@ -1,11 +1,11 @@
-g-0-3
-Fri 23 Sep 2022 11:05:42 PM CDT
-2022-09-23 23:05:48.315263: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+g-0-1
+Sun 25 Sep 2022 08:30:22 PM CDT
+2022-09-25 20:30:29.745685: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-09-23 23:05:49.307281: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory:  -> device: 0, name: NVIDIA TITAN RTX, pci bus id: 0000:5e:00.0, compute capability: 7.5
-2022-09-23 23:05:49.307979: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 22844 MB memory:  -> device: 1, name: NVIDIA TITAN RTX, pci bus id: 0000:86:00.0, compute capability: 7.5
-Found 2501 files belonging to 1 classes.
-Found 2501 files belonging to 1 classes.
+2022-09-25 20:30:30.726816: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory:  -> device: 0, name: NVIDIA TITAN RTX, pci bus id: 0000:18:00.0, compute capability: 7.5
+2022-09-25 20:30:30.727494: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 22844 MB memory:  -> device: 1, name: NVIDIA TITAN RTX, pci bus id: 0000:86:00.0, compute capability: 7.5
+Found 12500 files belonging to 1 classes.
+Found 12500 files belonging to 1 classes.
 Model: "encoder"
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
@@ -76,16 +76,887 @@ Total params: 2,587,267
 Trainable params: 2,586,883
 Non-trainable params: 384
 _________________________________________________________________
-2022-09-23 23:06:15.329002: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8302
-2022-09-23 23:06:15.996219: I tensorflow/core/platform/default/subprocess.cc:304] Start cannot spawn child process: No such file or directory
+2022-09-25 20:30:58.026304: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8302
+2022-09-25 20:30:58.704732: I tensorflow/core/platform/default/subprocess.cc:304] Start cannot spawn child process: No such file or directory
+2022-09-25 20:31:00.230919: I tensorflow/core/platform/default/subprocess.cc:304] Start cannot spawn child process: No such file or directory
 Epoch 1
-----------------------------------------
-<class 'tensorflow.python.framework.ops.Tensor'>
-----------------------------------------
-['OVERLOADABLE_OPERATORS', '_USE_EQUALITY', '__abs__', '__add__', '__and__', '__annotations__', '__array__', '__array_priority__', '__bool__', '__class__', '__copy__', '__delattr__', '__dict__', '__dir__', '__div__', '__doc__', '__eq__', '__floordiv__', '__format__', '__ge__', '__getattr__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__invert__', '__iter__', '__le__', '__len__', '__lt__', '__matmul__', '__mod__', '__module__', '__mul__', '__ne__', '__neg__', '__new__', '__nonzero__', '__or__', '__pow__', '__radd__', '__rand__', '__rdiv__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rmatmul__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__tf_tracing_type__', '__truediv__', '__weakref__', '__xor__', '_as_node_def_input', '_as_tf_output', '_c_api_shape', '_consumers', '_create_with_tf_output', '_disallow_bool_casting', '_disallow_in_graph_mode', '_disallow_iteration', '_disallow_when_autograph_disabled', '_disallow_when_autograph_enabled', '_disallow_when_autograph_unavailable', '_dtype', '_id', '_matmul', '_name', '_numpy_style_getitem', '_op', '_override_operator', '_rank', '_shape', '_shape_as_list', '_shape_tuple', '_shape_val', '_tf_api_names', '_tf_api_names_v1', '_tf_output', '_value_index', '_with_index_add', '_with_index_max', '_with_index_min', '_with_index_update', 'consumers', 'device', 'dtype', 'eval', 'experimental_ref', 'get_shape', 'graph', 'name', 'op', 'ref', 'set_shape', 'shape', 'value_index']
-----------------------------------------
-<class 'tensorflow.python.framework.ops.Tensor'>
-----------------------------------------
-['OVERLOADABLE_OPERATORS', '_USE_EQUALITY', '__abs__', '__add__', '__and__', '__annotations__', '__array__', '__array_priority__', '__bool__', '__class__', '__copy__', '__delattr__', '__dict__', '__dir__', '__div__', '__doc__', '__eq__', '__floordiv__', '__format__', '__ge__', '__getattr__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__invert__', '__iter__', '__le__', '__len__', '__lt__', '__matmul__', '__mod__', '__module__', '__mul__', '__ne__', '__neg__', '__new__', '__nonzero__', '__or__', '__pow__', '__radd__', '__rand__', '__rdiv__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rmatmul__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__tf_tracing_type__', '__truediv__', '__weakref__', '__xor__', '_as_node_def_input', '_as_tf_output', '_c_api_shape', '_consumers', '_create_with_tf_output', '_disallow_bool_casting', '_disallow_in_graph_mode', '_disallow_iteration', '_disallow_when_autograph_disabled', '_disallow_when_autograph_enabled', '_disallow_when_autograph_unavailable', '_dtype', '_id', '_matmul', '_name', '_numpy_style_getitem', '_op', '_override_operator', '_rank', '_shape', '_shape_as_list', '_shape_tuple', '_shape_val', '_tf_api_names', '_tf_api_names_v1', '_tf_output', '_value_index', '_with_index_add', '_with_index_max', '_with_index_min', '_with_index_update', 'consumers', 'device', 'dtype', 'eval', 'experimental_ref', 'get_shape', 'graph', 'name', 'op', 'ref', 'set_shape', 'shape', 'value_index']
-98683.96
-Fri 23 Sep 2022 11:06:19 PM CDT
+........
+Time taken for epoch 2 is 244.68795466423035 sec
+
+Epoch 2
+........
+Time taken for epoch 3 is 237.67333817481995 sec
+
+Epoch 3
+........
+Time taken for epoch 4 is 241.41207814216614 sec
+
+Epoch 4
+........
+Saving checkpoint  epoch 5
+
+Time taken for epoch 5 is 247.8285346031189 sec
+
+Epoch 5
+........
+Time taken for epoch 6 is 241.23623824119568 sec
+
+Epoch 6
+........
+Time taken for epoch 7 is 242.46639442443848 sec
+
+Epoch 7
+........
+Time taken for epoch 8 is 242.28955054283142 sec
+
+Epoch 8
+........
+Time taken for epoch 9 is 243.82827997207642 sec
+
+Epoch 9
+........
+Saving checkpoint  epoch 10
+
+Time taken for epoch 10 is 251.0342607498169 sec
+
+Epoch 10
+........
+Time taken for epoch 11 is 241.40638089179993 sec
+
+Epoch 11
+........
+Time taken for epoch 12 is 244.97232007980347 sec
+
+Epoch 12
+........
+Time taken for epoch 13 is 245.1780285835266 sec
+
+Epoch 13
+........
+Time taken for epoch 14 is 242.33060145378113 sec
+
+Epoch 14
+........
+Saving checkpoint  epoch 15
+
+Time taken for epoch 15 is 251.54880619049072 sec
+
+Epoch 15
+........
+Time taken for epoch 16 is 242.91624355316162 sec
+
+Epoch 16
+........
+Time taken for epoch 17 is 245.85327458381653 sec
+
+Epoch 17
+........
+Time taken for epoch 18 is 245.725026845932 sec
+
+Epoch 18
+........
+Time taken for epoch 19 is 244.35138869285583 sec
+
+Epoch 19
+........
+Saving checkpoint  epoch 20
+
+Time taken for epoch 20 is 250.827561378479 sec
+
+Epoch 20
+........
+Time taken for epoch 21 is 242.22613525390625 sec
+
+Epoch 21
+........
+Time taken for epoch 22 is 246.1532440185547 sec
+
+Epoch 22
+........
+Time taken for epoch 23 is 245.06303358078003 sec
+
+Epoch 23
+........
+Time taken for epoch 24 is 244.31267285346985 sec
+
+Epoch 24
+........
+Saving checkpoint  epoch 25
+
+Time taken for epoch 25 is 250.3789074420929 sec
+
+Epoch 25
+........
+Time taken for epoch 26 is 242.4860234260559 sec
+
+Epoch 26
+........
+Time taken for epoch 27 is 246.00747680664062 sec
+
+Epoch 27
+........
+Time taken for epoch 28 is 244.25617718696594 sec
+
+Epoch 28
+........
+Time taken for epoch 29 is 245.56456804275513 sec
+
+Epoch 29
+........
+Saving checkpoint  epoch 30
+
+Time taken for epoch 30 is 249.35149908065796 sec
+
+Epoch 30
+........
+Time taken for epoch 31 is 245.30378365516663 sec
+
+Epoch 31
+........
+Time taken for epoch 32 is 245.6000440120697 sec
+
+Epoch 32
+........
+Time taken for epoch 33 is 243.32446813583374 sec
+
+Epoch 33
+........
+Time taken for epoch 34 is 245.36746382713318 sec
+
+Epoch 34
+........
+Saving checkpoint  epoch 35
+
+Time taken for epoch 35 is 252.08208417892456 sec
+
+Epoch 35
+........
+Time taken for epoch 36 is 242.5746512413025 sec
+
+Epoch 36
+........
+Time taken for epoch 37 is 247.03936290740967 sec
+
+Epoch 37
+........
+Time taken for epoch 38 is 244.7544949054718 sec
+
+Epoch 38
+........
+Time taken for epoch 39 is 245.35386276245117 sec
+
+Epoch 39
+........
+Saving checkpoint  epoch 40
+
+Time taken for epoch 40 is 251.6890594959259 sec
+
+Epoch 40
+........
+Time taken for epoch 41 is 243.64200854301453 sec
+
+Epoch 41
+........
+Time taken for epoch 42 is 247.59702396392822 sec
+
+Epoch 42
+........
+Time taken for epoch 43 is 246.7945692539215 sec
+
+Epoch 43
+........
+Time taken for epoch 44 is 246.06059885025024 sec
+
+Epoch 44
+........
+Saving checkpoint  epoch 45
+
+Time taken for epoch 45 is 251.64945936203003 sec
+
+Epoch 45
+........
+Time taken for epoch 46 is 242.58902072906494 sec
+
+Epoch 46
+........
+Time taken for epoch 47 is 248.0084352493286 sec
+
+Epoch 47
+........
+Time taken for epoch 48 is 246.43853950500488 sec
+
+Epoch 48
+........
+Time taken for epoch 49 is 245.74987721443176 sec
+
+Epoch 49
+........
+Saving checkpoint  epoch 50
+
+Time taken for epoch 50 is 252.9159698486328 sec
+
+Epoch 50
+........
+Time taken for epoch 51 is 244.47811913490295 sec
+
+Epoch 51
+........
+Time taken for epoch 52 is 247.37715792655945 sec
+
+Epoch 52
+........
+Time taken for epoch 53 is 246.80086660385132 sec
+
+Epoch 53
+........
+Time taken for epoch 54 is 247.0271668434143 sec
+
+Epoch 54
+........
+Saving checkpoint  epoch 55
+
+Time taken for epoch 55 is 252.22923064231873 sec
+
+Epoch 55
+........
+Time taken for epoch 56 is 245.58975529670715 sec
+
+Epoch 56
+........
+Time taken for epoch 57 is 246.12621998786926 sec
+
+Epoch 57
+........
+Time taken for epoch 58 is 247.86895275115967 sec
+
+Epoch 58
+........
+Time taken for epoch 59 is 245.93570375442505 sec
+
+Epoch 59
+........
+Saving checkpoint  epoch 60
+
+Time taken for epoch 60 is 254.60499167442322 sec
+
+Epoch 60
+........
+Time taken for epoch 61 is 245.1866295337677 sec
+
+Epoch 61
+........
+Time taken for epoch 62 is 248.40454387664795 sec
+
+Epoch 62
+........
+Time taken for epoch 63 is 246.10112023353577 sec
+
+Epoch 63
+........
+Time taken for epoch 64 is 246.6453423500061 sec
+
+Epoch 64
+........
+Saving checkpoint  epoch 65
+
+Time taken for epoch 65 is 253.7380771636963 sec
+
+Epoch 65
+........
+Time taken for epoch 66 is 244.0269787311554 sec
+
+Epoch 66
+........
+Time taken for epoch 67 is 248.6283473968506 sec
+
+Epoch 67
+........
+Time taken for epoch 68 is 246.96183943748474 sec
+
+Epoch 68
+........
+Time taken for epoch 69 is 245.0724070072174 sec
+
+Epoch 69
+........
+Saving checkpoint  epoch 70
+
+Time taken for epoch 70 is 253.13023281097412 sec
+
+Epoch 70
+........
+Time taken for epoch 71 is 246.33835697174072 sec
+
+Epoch 71
+........
+Time taken for epoch 72 is 245.32296299934387 sec
+
+Epoch 72
+........
+Time taken for epoch 73 is 246.93960571289062 sec
+
+Epoch 73
+........
+Time taken for epoch 74 is 246.28085374832153 sec
+
+Epoch 74
+........
+Saving checkpoint  epoch 75
+
+Time taken for epoch 75 is 252.8375599384308 sec
+
+Epoch 75
+........
+Time taken for epoch 76 is 244.5278036594391 sec
+
+Epoch 76
+........
+Time taken for epoch 77 is 248.06829237937927 sec
+
+Epoch 77
+........
+Time taken for epoch 78 is 247.89288091659546 sec
+
+Epoch 78
+........
+Time taken for epoch 79 is 246.7189657688141 sec
+
+Epoch 79
+........
+Saving checkpoint  epoch 80
+
+Time taken for epoch 80 is 253.35190558433533 sec
+
+Epoch 80
+........
+Time taken for epoch 81 is 245.79175734519958 sec
+
+Epoch 81
+........
+Time taken for epoch 82 is 247.90736746788025 sec
+
+Epoch 82
+........
+Time taken for epoch 83 is 248.25991368293762 sec
+
+Epoch 83
+........
+Time taken for epoch 84 is 246.5697615146637 sec
+
+Epoch 84
+........
+Saving checkpoint  epoch 85
+
+Time taken for epoch 85 is 254.4066104888916 sec
+
+Epoch 85
+........
+Time taken for epoch 86 is 245.89363145828247 sec
+
+Epoch 86
+........
+Time taken for epoch 87 is 247.97430109977722 sec
+
+Epoch 87
+........
+Time taken for epoch 88 is 245.9714059829712 sec
+
+Epoch 88
+........
+Time taken for epoch 89 is 248.8834466934204 sec
+
+Epoch 89
+........
+Saving checkpoint  epoch 90
+
+Time taken for epoch 90 is 254.2806372642517 sec
+
+Epoch 90
+........
+Time taken for epoch 91 is 246.0250370502472 sec
+
+Epoch 91
+........
+Time taken for epoch 92 is 249.55983924865723 sec
+
+Epoch 92
+........
+Time taken for epoch 93 is 247.52346062660217 sec
+
+Epoch 93
+........
+Time taken for epoch 94 is 248.1840922832489 sec
+
+Epoch 94
+........
+Saving checkpoint  epoch 95
+
+Time taken for epoch 95 is 253.75563216209412 sec
+
+Epoch 95
+........
+Time taken for epoch 96 is 245.26962399482727 sec
+
+Epoch 96
+........
+Time taken for epoch 97 is 247.13504076004028 sec
+
+Epoch 97
+........
+Time taken for epoch 98 is 248.56104230880737 sec
+
+Epoch 98
+........
+Time taken for epoch 99 is 247.20385074615479 sec
+
+Epoch 99
+........
+Saving checkpoint  epoch 100
+
+Time taken for epoch 100 is 252.5267550945282 sec
+
+Epoch 100
+........
+Time taken for epoch 101 is 244.6371569633484 sec
+
+Epoch 101
+........
+Time taken for epoch 102 is 248.49232649803162 sec
+
+Epoch 102
+........
+Time taken for epoch 103 is 249.160325050354 sec
+
+Epoch 103
+........
+Time taken for epoch 104 is 246.89691877365112 sec
+
+Epoch 104
+........
+Saving checkpoint  epoch 105
+
+Time taken for epoch 105 is 257.5852618217468 sec
+
+Epoch 105
+........
+Time taken for epoch 106 is 247.1197464466095 sec
+
+Epoch 106
+........
+Time taken for epoch 107 is 249.35429191589355 sec
+
+Epoch 107
+........
+Time taken for epoch 108 is 248.5191342830658 sec
+
+Epoch 108
+........
+Time taken for epoch 109 is 248.61210179328918 sec
+
+Epoch 109
+........
+Saving checkpoint  epoch 110
+
+Time taken for epoch 110 is 254.85587644577026 sec
+
+Epoch 110
+........
+Time taken for epoch 111 is 247.25500178337097 sec
+
+Epoch 111
+........
+Time taken for epoch 112 is 249.06226229667664 sec
+
+Epoch 112
+........
+Time taken for epoch 113 is 248.99508118629456 sec
+
+Epoch 113
+........
+Time taken for epoch 114 is 248.41294384002686 sec
+
+Epoch 114
+........
+Saving checkpoint  epoch 115
+
+Time taken for epoch 115 is 254.15653777122498 sec
+
+Epoch 115
+........
+Time taken for epoch 116 is 246.4500856399536 sec
+
+Epoch 116
+........
+Time taken for epoch 117 is 248.99172711372375 sec
+
+Epoch 117
+........
+Time taken for epoch 118 is 248.91838955879211 sec
+
+Epoch 118
+........
+Time taken for epoch 119 is 247.54062414169312 sec
+
+Epoch 119
+........
+Saving checkpoint  epoch 120
+
+Time taken for epoch 120 is 255.55187487602234 sec
+
+Epoch 120
+........
+Time taken for epoch 121 is 247.38188862800598 sec
+
+Epoch 121
+........
+Time taken for epoch 122 is 249.29343032836914 sec
+
+Epoch 122
+........
+Time taken for epoch 123 is 249.91403460502625 sec
+
+Epoch 123
+........
+Time taken for epoch 124 is 248.9033398628235 sec
+
+Epoch 124
+........
+Saving checkpoint  epoch 125
+
+Time taken for epoch 125 is 255.04157710075378 sec
+
+Epoch 125
+........
+Time taken for epoch 126 is 246.95297980308533 sec
+
+Epoch 126
+........
+Time taken for epoch 127 is 249.40191888809204 sec
+
+Epoch 127
+........
+Time taken for epoch 128 is 247.72426891326904 sec
+
+Epoch 128
+........
+Time taken for epoch 129 is 250.201176404953 sec
+
+Epoch 129
+........
+Saving checkpoint  epoch 130
+
+Time taken for epoch 130 is 254.36313319206238 sec
+
+Epoch 130
+........
+Time taken for epoch 131 is 247.95464253425598 sec
+
+Epoch 131
+........
+Time taken for epoch 132 is 249.28156232833862 sec
+
+Epoch 132
+........
+Time taken for epoch 133 is 250.1745011806488 sec
+
+Epoch 133
+........
+Time taken for epoch 134 is 247.71986055374146 sec
+
+Epoch 134
+........
+Saving checkpoint  epoch 135
+
+Time taken for epoch 135 is 256.62497425079346 sec
+
+Epoch 135
+........
+Time taken for epoch 136 is 249.5575110912323 sec
+
+Epoch 136
+........
+Time taken for epoch 137 is 247.73573541641235 sec
+
+Epoch 137
+........
+Time taken for epoch 138 is 249.54283380508423 sec
+
+Epoch 138
+........
+Time taken for epoch 139 is 248.45316433906555 sec
+
+Epoch 139
+........
+Saving checkpoint  epoch 140
+
+Time taken for epoch 140 is 255.1072235107422 sec
+
+Epoch 140
+........
+Time taken for epoch 141 is 248.41348457336426 sec
+
+Epoch 141
+........
+Time taken for epoch 142 is 249.58690881729126 sec
+
+Epoch 142
+........
+Time taken for epoch 143 is 250.1308364868164 sec
+
+Epoch 143
+........
+Time taken for epoch 144 is 248.7263491153717 sec
+
+Epoch 144
+........
+Saving checkpoint  epoch 145
+
+Time taken for epoch 145 is 256.0316548347473 sec
+
+Epoch 145
+........
+Time taken for epoch 146 is 248.27139854431152 sec
+
+Epoch 146
+........
+Time taken for epoch 147 is 248.54857778549194 sec
+
+Epoch 147
+........
+Time taken for epoch 148 is 248.533709526062 sec
+
+Epoch 148
+........
+Time taken for epoch 149 is 251.2650589942932 sec
+
+Epoch 149
+........
+Saving checkpoint  epoch 150
+
+Time taken for epoch 150 is 255.0241310596466 sec
+
+Epoch 150
+........
+Time taken for epoch 151 is 248.12819004058838 sec
+
+Epoch 151
+........
+Time taken for epoch 152 is 248.90721559524536 sec
+
+Epoch 152
+........
+Time taken for epoch 153 is 250.960951089859 sec
+
+Epoch 153
+........
+Time taken for epoch 154 is 248.74303078651428 sec
+
+Epoch 154
+........
+Saving checkpoint  epoch 155
+
+Time taken for epoch 155 is 254.3840889930725 sec
+
+Epoch 155
+........
+Time taken for epoch 156 is 249.12803387641907 sec
+
+Epoch 156
+........
+Time taken for epoch 157 is 249.14223527908325 sec
+
+Epoch 157
+........
+Time taken for epoch 158 is 249.09189701080322 sec
+
+Epoch 158
+........
+Time taken for epoch 159 is 248.4885275363922 sec
+
+Epoch 159
+........
+Saving checkpoint  epoch 160
+
+Time taken for epoch 160 is 254.85948777198792 sec
+
+Epoch 160
+........
+Time taken for epoch 161 is 248.8356146812439 sec
+
+Epoch 161
+........
+Time taken for epoch 162 is 249.99160838127136 sec
+
+Epoch 162
+........
+Time taken for epoch 163 is 248.14617657661438 sec
+
+Epoch 163
+........
+Time taken for epoch 164 is 249.1268129348755 sec
+
+Epoch 164
+........
+Saving checkpoint  epoch 165
+
+Time taken for epoch 165 is 256.1681249141693 sec
+
+Epoch 165
+........
+Time taken for epoch 166 is 249.2010362148285 sec
+
+Epoch 166
+........
+Time taken for epoch 167 is 250.32983446121216 sec
+
+Epoch 167
+........
+Time taken for epoch 168 is 250.68556094169617 sec
+
+Epoch 168
+........
+Time taken for epoch 169 is 248.12981581687927 sec
+
+Epoch 169
+........
+Saving checkpoint  epoch 170
+
+Time taken for epoch 170 is 256.4619104862213 sec
+
+Epoch 170
+........
+Time taken for epoch 171 is 247.32796597480774 sec
+
+Epoch 171
+........
+Time taken for epoch 172 is 250.83278822898865 sec
+
+Epoch 172
+........
+Time taken for epoch 173 is 250.6777114868164 sec
+
+Epoch 173
+........
+Time taken for epoch 174 is 250.64906287193298 sec
+
+Epoch 174
+........
+Saving checkpoint  epoch 175
+
+Time taken for epoch 175 is 256.08691596984863 sec
+
+Epoch 175
+........
+Time taken for epoch 176 is 247.0295374393463 sec
+
+Epoch 176
+........
+Time taken for epoch 177 is 249.35658621788025 sec
+
+Epoch 177
+........
+Time taken for epoch 178 is 248.47247624397278 sec
+
+Epoch 178
+........
+Time taken for epoch 179 is 248.77928805351257 sec
+
+Epoch 179
+........
+Saving checkpoint  epoch 180
+
+Time taken for epoch 180 is 254.86091351509094 sec
+
+Epoch 180
+........
+Time taken for epoch 181 is 248.66032576560974 sec
+
+Epoch 181
+........
+Time taken for epoch 182 is 249.73598742485046 sec
+
+Epoch 182
+........
+Time taken for epoch 183 is 250.263742685318 sec
+
+Epoch 183
+........
+Time taken for epoch 184 is 249.41772031784058 sec
+
+Epoch 184
+........
+Saving checkpoint  epoch 185
+
+Time taken for epoch 185 is 255.54982566833496 sec
+
+Epoch 185
+........
+Time taken for epoch 186 is 249.68458461761475 sec
+
+Epoch 186
+........
+Time taken for epoch 187 is 250.12560033798218 sec
+
+Epoch 187
+........
+Time taken for epoch 188 is 249.0397434234619 sec
+
+Epoch 188
+........
+Time taken for epoch 189 is 250.4907968044281 sec
+
+Epoch 189
+........
+Saving checkpoint  epoch 190
+
+Time taken for epoch 190 is 255.577730178833 sec
+
+Epoch 190
+........
+Time taken for epoch 191 is 249.7337930202484 sec
+
+Epoch 191
+........
+Time taken for epoch 192 is 248.5861234664917 sec
+
+Epoch 192
+........
+Time taken for epoch 193 is 249.80275082588196 sec
+
+Epoch 193
+........
+Time taken for epoch 194 is 251.3488929271698 sec
+
+Epoch 194
+........
+Saving checkpoint  epoch 195
+
+Time taken for epoch 195 is 255.46203422546387 sec
+
+Epoch 195
+........
+Time taken for epoch 196 is 250.58350896835327 sec
+
+Epoch 196
+........
+Time taken for epoch 197 is 250.55153465270996 sec
+
+Epoch 197
+........
+Time taken for epoch 198 is 248.74015402793884 sec
+
+Epoch 198
+........
+Time taken for epoch 199 is 249.14205718040466 sec
+
+Epoch 199
+........
+Saving checkpoint  epoch 200
+
+Time taken for epoch 200 is 256.4961750507355 sec
+
+Epoch 200
+........
+Time taken for epoch 201 is 249.3506407737732 sec
+
+Mon 26 Sep 2022 10:19:20 AM CDT

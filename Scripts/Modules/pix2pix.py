@@ -148,7 +148,6 @@ class VAE_pix2pix_model(Model):
             kl_loss_y = reduce_mean(reduce_sum(kl_loss_y,
                                                axis=1))
             vae_loss_y = r_loss_y + kl_loss_y
-            vae_loss = vae_loss_x+vae_loss_y
             fake_y = self.generator_g(
                 pred_x,
                 training=True

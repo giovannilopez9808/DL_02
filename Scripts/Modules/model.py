@@ -25,6 +25,7 @@ class CycleGAN_model:
             start = time()
             print(f"Epoch {epoch}")
             for i, (image_x, image_y) in dataset.shuffle(2022).take(10).enumerate():
+                i = i.numpy()
                 history = self.model.train_step(image_x,
                                                 image_y)
                 values = map(lambda loss: loss.numpy(),

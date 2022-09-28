@@ -41,6 +41,7 @@ def plot_latent_space(model: VAE_pix2pix_model,
             pos_x_j = (i+1)*input_size[0]
             pos_y_i = j*input_size[1]
             pos_y_j = (j+1)*input_size[1]
+            print(img)
             canvas[pos_x_i: pos_x_j, pos_y_i: pos_y_j, :] = img
 
     plt.figure(figsize=(figsize, figsize))
@@ -61,7 +62,7 @@ def plot_latent_space(model: VAE_pix2pix_model,
     plt.ylabel(f"z[{latents_start[1]}]")
     plt.imshow(canvas,
                cmap="Greys_r")
-    plt.show()
+    plt.savefig("test.png")
 
 
 params = get_params()

@@ -2,6 +2,7 @@ from .pix2pix import VAE_pix2pix_model
 from tensorflow.data import Dataset
 from pandas import (DataFrame,
                     concat)
+from tabulate import tabulate
 from time import time
 
 
@@ -24,7 +25,7 @@ class CycleGAN_model:
                            self.params["epochs"]+1):
             start = time()
             print(f"Epoch {epoch}")
-            for i, (image_x, image_y) in dataset.shuffle(2022).take(100).enumerate():
+            for i, (image_x, image_y) in dataset.shuffle(2022).take(1000).enumerate():
                 i = i.numpy()
                 history = self.model.train_step(image_x,
                                                 image_y)
@@ -37,7 +38,8 @@ class CycleGAN_model:
                 history_all = concat([history_all,
                                       history])
                 if i % 10 == 0:
-                    print(history)
+                    print(tabulate(history,
+                                   headers=history.columns))
                     # print('.', end='')
             if (epoch + 1) % 5 == 0:
                 _ = self.model.checkpoint.save()

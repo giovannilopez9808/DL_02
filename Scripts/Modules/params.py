@@ -19,10 +19,10 @@ def get_params() -> dict:
         },
         "VAE": {
             "input_dim": (256, 256, 3),
-            "r_loss_factor": 100000,
-            "latent_dim": 150,
-            "summary": True,
+            "r_loss_factor": 1000,
+            "latent_dim": 300,
+            "summary": False,
         },
-        "epochs": 200,
+        "epochs": 15,
     }
     return params

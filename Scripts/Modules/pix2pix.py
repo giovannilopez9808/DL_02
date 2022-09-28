@@ -126,28 +126,27 @@ class VAE_pix2pix_model(Model):
         with GradientTape(persistent=True) as tape:
             # predict
             enc_x = self.vae_x.encoder_model(real_x)
+            enc_y = self.vae_y.encoder_model(real_y)
             z_x, z_x_mean, z_x_log_var = self.vae_x.sampler_model(enc_x)
+            z_y, z_y_mean, z_y_log_var = self.vae_y.sampler_model(enc_y)
             pred_x = self.vae_x.decoder_model(z_x)
+            pred_y = self.vae_y.decoder_model(z_y)
             # loss
             r_loss_x = self.vae_x.r_loss_factor * self.vae_x.mae(real_x,
                                                                  pred_x)
-            kl_loss_x = 1 + z_x_log_var - square(z_x_mean) - exp(z_x_log_var)
-            kl_loss_x = -0.5*kl_loss_x
-            kl_loss_x = reduce_mean(reduce_sum(kl_loss_x,
-                                               axis=1))
-            vae_loss_x = r_loss_x + kl_loss_x
-
-            enc_y = self.vae_y.encoder_model(real_y)
-            z_y, z_y_mean, z_y_log_var = self.vae_y.sampler_model(enc_y)
-            pred_y = self.vae_y.decoder_model(z_y)
-            # loss
             r_loss_y = self.vae_y.r_loss_factor * self.vae_y.mae(real_y,
                                                                  pred_y)
-            kl_loss_y = 1 + z_log_var - square(z_mean) - exp(z_log_var)
+            kl_loss_x = 1 + z_x_log_var - square(z_x_mean) - exp(z_x_log_var)
+            kl_loss_x = -0.5*kl_loss_x
+            kl_loss_y = 1 + z_y_log_var - square(z_y_mean) - exp(z_y_log_var)
             kl_loss_y = -0.5*kl_loss_y
+            kl_loss_x = reduce_mean(reduce_sum(kl_loss_x,
+                                               axis=1))
             kl_loss_y = reduce_mean(reduce_sum(kl_loss_y,
                                                axis=1))
+            vae_loss_x = r_loss_x + kl_loss_x
             vae_loss_y = r_loss_y + kl_loss_y
+
             fake_y = self.generator_g(
                 pred_x,
                 training=True
@@ -204,14 +203,16 @@ class VAE_pix2pix_model(Model):
 
             # Total generator loss = adversarial loss + cycle loss
             total_gen_g_loss = gen_g_loss
-            total_gen_g_loss += vae_loss_x
-            total_gen_g_loss += total_cycle_loss
-            total_gen_g_loss += identity_loss()(real_y,
+            total_gen_g_loss += cycle_loss_x
+            # total_gen_g_loss += vae_loss_x
+            # total_gen_g_loss += total_cycle_loss
+            total_gen_g_loss += identity_loss()(pred_y,
                                                 same_y)
             total_gen_f_loss = gen_f_loss
-            total_gen_f_loss += vae_loss_y
-            total_gen_f_loss += total_cycle_loss
-            total_gen_g_loss += identity_loss()(real_x,
+            total_gen_g_loss += cycle_loss_y
+            # total_gen_f_loss += vae_loss_y
+            # total_gen_f_loss += total_cycle_loss
+            total_gen_g_loss += identity_loss()(pred_x,
                                                 same_x)
             disc_x_loss = discriminator_loss(disc_real_x,
                                              disc_fake_x)
@@ -271,12 +272,12 @@ class VAE_pix2pix_model(Model):
         )
         # compute progress
         self.vae_x.total_loss_tracker.update_state(vae_loss_x)
-        self.vae_x.reconstruction_loss_tracker.update_state(r_loss_x)
-        self.vae_x.kl_loss_tracker.update_state(kl_loss_x)
-
         self.vae_y.total_loss_tracker.update_state(vae_loss_y)
+        self.vae_x.reconstruction_loss_tracker.update_state(r_loss_x)
         self.vae_y.reconstruction_loss_tracker.update_state(r_loss_y)
+        self.vae_x.kl_loss_tracker.update_state(kl_loss_x)
         self.vae_y.kl_loss_tracker.update_state(kl_loss_y)
+
         loss_history = {
             "loss_vae_x": self.vae_x.total_loss_tracker.result(),
             "re_vae_x_loss": self.vae_x.reconstruction_loss_tracker.result(),

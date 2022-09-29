@@ -1,12 +1,5 @@
 from keras.utils import image_dataset_from_directory
 from tensorflow.keras import layers
-from tensorflow.image import (
-    random_flip_left_right,
-    ResizeMethod,
-    random_crop,
-    resize
-)
-from tensorflow import Tensor
 from tensorflow.data import (
     AUTOTUNE,
     Dataset
@@ -42,13 +35,13 @@ class dataset_model:
             directory=dog_path,
             **self.params["dataset"]["train"],
         )
-        dog_dataset = self._normalization_train_dataset(dataset)
+        dog_dataset = self._normalization_dataset(dataset)
         dataset = image_dataset_from_directory(
             directory=cat_path,
             seed=2022,
             **self.params["dataset"]["train"],
         )
-        cat_dataset = self._normalization_train_dataset(dataset)
+        cat_dataset = self._normalization_dataset(dataset)
         if self.params["dataset"]["type"] == "dog":
             self.train = dog_dataset
         elif self.params["dataset"]["type"] == "cat":
@@ -57,33 +50,11 @@ class dataset_model:
             self.train = Dataset.zip((dog_dataset,
                                       cat_dataset))
 
-    def _normalization_train_dataset(self,
-                                     dataset: Dataset) -> Dataset:
-        dataset = dataset.map(self._random_jitter,
-                              num_parallel_calls=self.autotune)
-        dataset = self._normalization(dataset)
+    def _normalization_dataset(self,
+                               dataset: Dataset) -> Dataset:
+        dataset = dataset.map(
+            lambda image:
+            (normalization_layer(image)),
+            num_parallel_calls=self.autotune
+        )
         return dataset
-
-    def _normalization(self,
-                       dataset: Dataset) -> Dataset:
-        dataset = dataset.map(normalization_layer,
-                              num_parallel_calls=self.autotune)
-        dataset = dataset.map(lambda x:
-                              2*x-1)
-        return dataset
-
-    def _random_jitter(self,
-                       image: Tensor) -> Tensor:
-        image = resize(image,
-                       [286, 286],
-                       method=ResizeMethod.NEAREST_NEIGHBOR)
-        # randomly cropping to 256 x 256 x 3
-        image = random_crop(image,
-                            size=[
-                                1,
-                                256,
-                                256,
-                                3])
-        # random mirroring
-        image = random_flip_left_right(image)
-        return image

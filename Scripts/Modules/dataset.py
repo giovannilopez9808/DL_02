@@ -49,8 +49,13 @@ class dataset_model:
             **self.params["dataset"]["train"],
         )
         cat_dataset = self._normalization_train_dataset(dataset)
-        self.train = Dataset.zip((dog_dataset,
-                                  cat_dataset))
+        if self.params["dataset"]["type"] == "dog":
+            self.train = dog_dataset
+        elif self.params["dataset"]["type"] == "cat":
+            self.train = cat_dataset
+        else:
+            self.train = Dataset.zip((dog_dataset,
+                                      cat_dataset))
 
     def _normalization_train_dataset(self,
                                      dataset: Dataset) -> Dataset:

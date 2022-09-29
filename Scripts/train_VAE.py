@@ -13,9 +13,9 @@ history = model.fit(dataset.train,
                     epochs=params["epochs"])
 history = history.history
 history = DataFrame(history)
-filename = "../history.csv"
+filename = f"../{argv[1]}_history.csv"
 history.to_csv(filename)
-filename = "model.h5"
+filename = f"{argv[1]}_model.h5"
 filename = join(params["path model"],
                 filename)
 model.save_weights(filename)

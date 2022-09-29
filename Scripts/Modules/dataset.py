@@ -57,4 +57,8 @@ class dataset_model:
             (normalization_layer(image)),
             num_parallel_calls=self.autotune
         )
+        dataset = dataset.map(
+            lambda image:
+            image*2-1
+        )
         return dataset

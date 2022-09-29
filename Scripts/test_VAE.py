@@ -3,8 +3,11 @@ from Modules.params import get_params
 import matplotlib.pyplot as plt
 from Modules.VAE import VAE
 from os.path import join
-from numpy import array
 from sys import argv
+from numpy import (
+    expand_dims,
+    array
+)
 
 
 def plot_image(ax: plt.subplot,
@@ -25,7 +28,9 @@ filename = f"{argv[1]}_model.h5"
 filename = join(params["path models"],
                 filename)
 model.load_weights(filename)
-image = list(dataset.train.take(1))[0]
+image = list(dataset.train.take(1))[0][0]
+image = expand_dims(image,
+                    axis=0)
 predict = model(image)
 fig, (ax1, ax2) = plt.subplots(1, 2,
                                figsize=(10, 5))

@@ -30,7 +30,6 @@ class dataset_model:
 
     def _read_dataset(self) -> tuple:
         self._read_train_dataset()
-        # self._read_test_dataset()
 
     def _read_train_dataset(self) -> Dataset:
         path = join(self.params["path data"],
@@ -53,26 +52,11 @@ class dataset_model:
         self.train = Dataset.zip((dog_dataset,
                                   cat_dataset))
 
-    def _read_test_dataset(self) -> Dataset:
-        path = join(self.params["path data"],
-                    "test")
-        dataset = image_dataset_from_directory(
-            directory=path,
-            **self.params["dataset"]["test"],
-        )
-        self.test = self._normalization_test_dataset(dataset)
-
-    def _normalization_test_dataset(self,
-                                    dataset: Dataset) -> Dataset:
-        dataset = self._normalization(dataset)
-        return dataset
-
     def _normalization_train_dataset(self,
                                      dataset: Dataset) -> Dataset:
         dataset = dataset.map(self._random_jitter,
                               num_parallel_calls=self.autotune)
         dataset = self._normalization(dataset)
-        # dataset = dataset.prefetch(12500).repeat()
         return dataset
 
     def _normalization(self,

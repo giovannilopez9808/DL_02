@@ -1,36 +1,43 @@
-from keras.layers import (BatchNormalization,
-                          Conv2DTranspose,
-                          Activation,
-                          LeakyReLU,
-                          Reshape,
-                          Dropout,
-                          Flatten,
-                          Conv2D,
-                          Input,
-                          Dense)
-from keras.losses import MeanAbsoluteError
-from keras.backend import random_normal
-from tensorflow import (GradientTape,
-                        reduce_mean,
-                        reduce_sum,
-                        function,
-                        square,
-                        shape,
-                        exp)
-from keras.metrics import Mean
-from keras import Model
+from tensorflow.keras.losses import MeanAbsoluteError
+from tensorflow.keras.backend import random_normal
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.metrics import Mean
+from tensorflow.keras import Model
+from tensorflow.keras.layers import (
+    BatchNormalization,
+    Conv2DTranspose,
+    Activation,
+    LeakyReLU,
+    Reshape,
+    Dropout,
+    Flatten,
+    Conv2D,
+    Input,
+    Dense
+)
 from numpy import prod
+from tensorflow import (
+    GradientTape,
+    reduce_mean,
+    reduce_sum,
+    function,
+    square,
+    shape,
+    exp
+)
 
 
 class VAE(Model):
     def __init__(self,
-                 latent_dim: tuple,
-                 input_dim: tuple,
-                 r_loss_factor: int = 1,
-                 summary: bool = False,
-                 **kwargs) -> None:
+                 r_loss_factor: int,
+                 input_dim: int,
+                 latent_dim: int,
+                 summary=False,
+                 **kwargs):
         super(VAE, self).__init__(**kwargs)
+
         self.r_loss_factor = r_loss_factor
+
         # Architecture
         self.input_dim = input_dim
         self.latent_dim = latent_dim
@@ -38,17 +45,21 @@ class VAE(Model):
         self.encoder_conv_kernel_size = [3, 3, 3, 3]
         self.encoder_conv_strides = [2, 2, 2, 2]
         self.n_layers_encoder = len(self.encoder_conv_filters)
+
         self.decoder_conv_t_filters = [64, 64, 64, 3]
         self.decoder_conv_t_kernel_size = [3, 3, 3, 3]
         self.decoder_conv_t_strides = [2, 2, 2, 2]
         self.n_layers_decoder = len(self.decoder_conv_t_filters)
+
         self.use_batch_norm = True
         self.use_dropout = True
+
         self.total_loss_tracker = Mean(name="total_loss")
         self.reconstruction_loss_tracker = Mean(name="reconstruction_loss")
         self.kl_loss_tracker = Mean(name="kl_loss")
         self.mae = MeanAbsoluteError()
-        self.built = True
+        self.compile(Adam(2e-4,
+                          beta_1=0.5))
         # Encoder
         self.encoder_model = Encoder(
             input_dim=self.input_dim,
@@ -60,8 +71,8 @@ class VAE(Model):
             use_dropout=self.use_dropout
         )
         self.encoder_conv_size = self.encoder_model.last_conv_size
+        # Sampler
         self.sampler_model = Sampler(latent_dim=self.latent_dim)
-        # Decoder
         self.decoder_model = Decoder(
             input_dim=self.latent_dim,
             input_conv_dim=self.encoder_conv_size,
@@ -76,56 +87,62 @@ class VAE(Model):
             self.sampler_model.summary()
             self.decoder_model.summary()
 
+        self.built = True
+
     @property
-    def metrics(self) -> list:
+    def metrics(self):
         return [self.total_loss_tracker,
                 self.reconstruction_loss_tracker,
                 self.kl_loss_tracker, ]
 
     @function
-    def train_step(self, data) -> dict:
+    def train_step(self, data):
         '''
         '''
         with GradientTape() as tape:
+
             # predict
             x = self.encoder_model(data)
             z, z_mean, z_log_var = self.sampler_model(x)
             pred = self.decoder_model(z)
+
             # loss
-            r_loss = self.r_loss_factor * self.mae(data,
-                                                   pred)
-            kl_loss = -0.5 * (1 + z_log_var - square(z_mean) - exp(z_log_var))
+            r_loss = self.r_loss_factor * self.mae(data, pred)
+            kl_loss = 1 + z_log_var - square(z_mean) - exp(z_log_var)
+            kl_loss = -0.5*kl_loss
             kl_loss = reduce_mean(reduce_sum(kl_loss, axis=1))
             total_loss = r_loss + kl_loss
+
         # gradient
-        grads = tape.gradient(total_loss,
-                              self.trainable_weights)
+        grads = tape.gradient(total_loss, self.trainable_weights)
         # train step
-        self.optimizer.apply_gradients(zip(grads,
-                                           self.trainable_weights))
+        self.optimizer.apply_gradients(zip(grads, self.trainable_weights))
         # compute progress
         self.total_loss_tracker.update_state(total_loss)
         self.reconstruction_loss_tracker.update_state(r_loss)
         self.kl_loss_tracker.update_state(kl_loss)
-        return {
+        history = {
             "loss": self.total_loss_tracker.result(),
             "reconstruction_loss": self.reconstruction_loss_tracker.result(),
             "kl_loss": self.kl_loss_tracker.result(),
         }
+        return history
 
     @function
-    def generate(self, z_sample) -> list:
+    def generate(self,
+                 z_sample):
         '''
-        We use the sample of the N(0,I) directly as
-        input of the deterministic generator.
+        We use the sample of the N(0,I) directly as  
+        input of the deterministic generator. 
         '''
         return self.decoder_model(z_sample)
 
     @function
-    def codify(self, images) -> tuple:
+    def codify(self,
+               images):
         '''
         For an input image we obtain its particular distribution:
-        its mean, its variance (unvertaintly) and a sample z of such
+        its mean, its variance (unvertaintly) and a sample z of such 
         distribution.
         '''
         x = self.encoder_model.predict(images)
@@ -136,19 +153,19 @@ class VAE(Model):
     @function
     def call(self,
              inputs,
-             training: bool = False) -> list:
+             training=False):
         '''
         '''
-        tmp1 = self.encoder_model.use_Dropout
-        tmp2 = self.decoder_model.use_Dropout
+        tmp1 = self.encoder_model.use_dropout
+        tmp2 = self.decoder_model.use_dropout
         if not training:
-            self.encoder_model.use_Dropout = False
+            self.encoder_model.use_dropout = False
             self.decoder_model.use_Dropout = False
         x = self.encoder_model(inputs)
         z, _, _ = self.sampler_model(x)
         pred = self.decoder_model(z)
-        self.encoder_model.use_Dropout = tmp1
-        self.decoder_model.use_Dropout = tmp2
+        self.encoder_model.use_dropout = tmp1
+        self.decoder_model.use_dropout = tmp2
         return pred
 
 
@@ -263,11 +280,11 @@ class Decoder(Model):
             if i < self.n_layers_decoder - 1:
                 if self.use_batch_norm:
                     x = BatchNormalization()(x)
-                x = LeakyReLU()(x)
+                x = Activation("tanh")(x)
                 if self.use_dropout:
                     x = Dropout(rate=0.25)(x)
             else:
-                x = Activation('sigmoid')(x)
+                x = Activation('tanh')(x)
         decoder_output = x
         model = Model(decoder_input,
                       decoder_output)
@@ -291,7 +308,7 @@ class Sampler(Model):
         self.built = True
 
     def get_config(self) -> dict:
-        config = super(Sampler, self).get_config()
+        config = super().get_config()
         config.update({"units": self.units})
         return config
 

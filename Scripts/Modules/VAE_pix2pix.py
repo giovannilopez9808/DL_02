@@ -76,8 +76,8 @@ class VAE_pix2pix_model(Model):
     def _create_checkpoint(self) -> None:
         checkpoint_path = "../Checkpoint"
         ckpt = Checkpoint(
-            vae_x=self.vae_x,
-            vae_y=self.vae_y,
+            vae_dog=self.vae_dog,
+            vae_cat=self.vae_cat,
             generator_cat=self.generator_cat,
             generator_dog=self.generator_dog,
             discriminator_cat=self.discriminator_cat,

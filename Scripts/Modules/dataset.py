@@ -33,6 +33,7 @@ class dataset_model:
                         "cat")
         dataset = image_dataset_from_directory(
             directory=dog_path,
+            seed=2022,
             **self.params["dataset"]["train"],
         )
         dog_dataset = self._normalization_dataset(dataset)

@@ -233,8 +233,8 @@ class pix2pix_model(Model):
                                       history])
                 print(tabulate(history,
                                headers=history.columns))
-            if (epoch + 1) % 5 == 0:
-                _ = self.model.checkpoint.save()
+            if (epoch + 1) % 100 == 0:
+                _ = self.checkpoint.save()
                 print(f'\nSaving checkpoint  epoch {epoch+1}')
             final_time = time()-start
             print('\nTime taken for epoch {} is {} sec\n'.format(epoch + 1,

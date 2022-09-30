@@ -38,4 +38,4 @@ plot_image(ax2,
            predict,
            "predict")
 plt.tight_layout()
-plt.savefig("test_VAE.png")
+plt.savefig("test_pix2pix.png")

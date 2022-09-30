@@ -29,16 +29,19 @@ model = pix2pix_model()
 image = list(dataset.train.take(1))[0][0]
 image = expand_dims(image,
                     axis=0)
-predict = model.generator_g(image)
-print(min(predict), max(predict))
+predict_cat = model.generator_g(image)
+predict_dog = model.generator_f(image)
 # predict = model(image)
-fig, (ax1, ax2) = plt.subplots(1, 2,
-                               figsize=(10, 5))
+fig, (ax1, ax2,ax3) = plt.subplots(1, 3,
+                               figsize=(15, 5))
 plot_image(ax1,
            image,
            "photo")
 plot_image(ax2,
-           predict,
-           "predict")
-plt.tight_layout()
-plt.savefig("test_pix2pix.png")
+           predict_cat,
+           "to cat")
+plot_image(ax3,
+           predict_dog,
+           "to dog")
+plt.tight_layout(pad=2)
+plt.savefig(f"{argv[1]}_pix2pix.png")

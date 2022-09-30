@@ -38,7 +38,7 @@ class pix2pix_model(Model):
               self).__init__(**kwargs)
         self.generator_g = pix2pix.unet_generator(
             OUTPUT_CHANNELS,
-            norm_type='instancenorm'
+            norm_type='instancenorm',
         )
         self.generator_f = pix2pix.unet_generator(
             OUTPUT_CHANNELS,

@@ -6,7 +6,9 @@ from os.path import join
 from sys import argv
 from numpy import (
     expand_dims,
-    array
+    array,
+    min,
+    max
 )
 
 
@@ -28,6 +30,7 @@ image = list(dataset.train.take(1))[0][0]
 image = expand_dims(image,
                     axis=0)
 predict = model.generator_g(image)
+print(min(predict), max(predict))
 # predict = model(image)
 fig, (ax1, ax2) = plt.subplots(1, 2,
                                figsize=(10, 5))

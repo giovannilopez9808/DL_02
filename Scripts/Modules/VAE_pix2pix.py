@@ -42,12 +42,14 @@ def plot_image(ax: plt.subplot,
     ax.imshow(image)
     ax.axis("off")
 
+
 class VAE_pix2pix_model(Model):
     def __init__(self,
                  params: dict,
                  **kwargs) -> None:
         super(VAE_pix2pix_model,
               self).__init__(**kwargs)
+        self.params = params
         self.vae_dog = VAE(**params["VAE"])
         self.vae_cat = VAE(**params["VAE"])
         self.generator_cat = pix2pix.unet_generator(
@@ -272,7 +274,7 @@ class VAE_pix2pix_model(Model):
             dataset: Dataset,
             epochs: int) -> DataFrame:
         history_all = DataFrame()
-        dog_test,cat_test = list(dataset.test.take(1))[0]
+        dog_test, cat_test = list(dataset.test.take(1))[0]
         for epoch in range(1,
                            epochs+1):
             start = time()
@@ -291,12 +293,38 @@ class VAE_pix2pix_model(Model):
                                       history])
                 print(tabulate(history,
                                headers=history.columns))
-                fig,axs = plt.subplots(2,3,
-                                       figsize=(15,10))
+                decoder_dog = self.vae_dog(dog)
+                gen_cat = self.generator_cat(decoder_dog)
+                decoder_cat = self.vae_cat(cat)
+                gen_dog = self.generator_dog(decoder_dog)
+                fig, axs = plt.subplots(2, 3,
+                                        figsize=(15, 10))
                 axs = axs.flatten()
-
                 plot_image(axs[0],
-                           dog_test)
+                           dog_test,
+                           "dog")
+                plot_image(axs[1],
+                           decoder_dog,
+                           "decoder dog")
+                plot_image(axs[2],
+                           gen_cat,
+                           "cat generate")
+                plot_image(axs[3],
+                           cat_test,
+                           "cat")
+                plot_image(axs[4],
+                           decoder_cat,
+                           "decoder cat")
+                plot_image(axs[5],
+                           gen_dog,
+                           "dog generate")
+                plt.tight_layout(pad=2)
+                filename = str(i).zfill(5)
+                filename = f"Test_{filename}"
+                filename = join(params["path graphics"],
+                                filename)
+                plt.savefig(filename,
+                            dpi=400)
             if (epoch + 1) % 100 == 0:
                 _ = self.checkpoint.save()
                 print(f'\nSaving checkpoint  epoch {epoch+1}')

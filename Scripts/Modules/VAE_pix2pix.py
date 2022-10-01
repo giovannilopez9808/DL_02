@@ -2,6 +2,7 @@ from tensorflow_examples.models.pix2pix import pix2pix
 from keras.losses import BinaryCrossentropy
 from tensorflow.data import Dataset
 from keras.optimizers import Adam
+import matplotlib.pyplot as plt
 from tabulate import tabulate
 from keras.losses import Loss
 from tensorflow.train import (
@@ -31,6 +32,15 @@ loss_obj = BinaryCrossentropy(from_logits=True)
 OUTPUT_CHANNELS = 3
 LAMBDA = 10
 
+
+def plot_image(ax: plt.subplot,
+               image: array,
+               label: str) -> None:
+    image = image[0]
+    image = (image+1)/2
+    ax.set_title(label)
+    ax.imshow(image)
+    ax.axis("off")
 
 class VAE_pix2pix_model(Model):
     def __init__(self,
@@ -262,11 +272,12 @@ class VAE_pix2pix_model(Model):
             dataset: Dataset,
             epochs: int) -> DataFrame:
         history_all = DataFrame()
+        dog_test,cat_test = list(dataset.test.take(1))[0]
         for epoch in range(1,
                            epochs+1):
             start = time()
             print(f"Epoch {epoch}")
-            for i, (dog, cat) in dataset.take(1).enumerate():
+            for i, (dog, cat) in dataset.train.take(1).enumerate():
                 i = i.numpy()
                 history = self.train_step(dog,
                                           cat)
@@ -280,6 +291,12 @@ class VAE_pix2pix_model(Model):
                                       history])
                 print(tabulate(history,
                                headers=history.columns))
+                fig,axs = plt.subplots(2,3,
+                                       figsize=(15,10))
+                axs = axs.flatten()
+
+                plot_image(axs[0],
+                           dog_test)
             if (epoch + 1) % 100 == 0:
                 _ = self.checkpoint.save()
                 print(f'\nSaving checkpoint  epoch {epoch+1}')

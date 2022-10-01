@@ -110,7 +110,7 @@ class VAE_pix2pix_model(Model):
             zd, zd_mean, zd_log_var = self.vae_dog.sampler_model(pred_dog)
             pred_dog = self.vae_dog.decoder_model(zd)
             # loss
-            rd_loss = self.vae_dog.r_loss_factor * self.mae(
+            rd_loss = self.vae_dog.r_loss_factor * self.vae_dog.mae(
                 dog,
                 pred_dog
             )
@@ -123,9 +123,9 @@ class VAE_pix2pix_model(Model):
             pred_cat = self.vae_cat.encoder_model(cat)
             # predict
             zc, zc_mean, zc_log_var = self.vae_cat.sampler_model(pred_cat)
-            pred_cat = self.decoder_model(zc)
+            pred_cat = self.vae_cat.decoder_model(zc)
             # loss
-            rc_loss = self.vae_cat.r_loss_factor * self.mae(
+            rc_loss = self.vae_cat.r_loss_factor * self.vae_cat.mae(
                 cat,
                 pred_cat
             )

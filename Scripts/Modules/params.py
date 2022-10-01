@@ -10,12 +10,6 @@ def get_params() -> dict:
                 "shuffle": True,
                 "labels": None,
             },
-            "test": {
-                "image_size": (256, 256),
-                "batch_size": 1,
-                "shuffle": False,
-                "labels": None,
-            }
         },
         "VAE": {
             "input_dim": (256, 256, 3),
@@ -23,6 +17,7 @@ def get_params() -> dict:
             "latent_dim": 150,
             "summary": False,
         },
-        "epochs":1000,
+        "epochs":50000,
+        # "epochs":10,
     }
     return params

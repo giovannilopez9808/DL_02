@@ -1,7 +1,7 @@
 from Modules.dataset import dataset_model
 from Modules.params import get_params
 import matplotlib.pyplot as plt
-from Modules.VAE import VAE
+from Modules.VAE2 import VAE2
 from os.path import join
 from numpy import array
 from sys import argv
@@ -20,11 +20,7 @@ def plot_image(ax: plt.subplot,
 params = get_params()
 params["dataset"]["type"] = argv[1]
 dataset = dataset_model(params)
-model = VAE(**params["VAE"])
-filename = f"VAE_{argv[1]}.h5"
-filename = join(params["path models"],
-                filename)
-model.load_weights(filename)
+model = VAE2(params["VAE"])
 
 image = list(dataset.train.take(1))[0]
 pred = model(image)

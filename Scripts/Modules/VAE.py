@@ -16,7 +16,6 @@ from tensorflow import (
     exp,
 )
 from time import time
-from .VAE import VAE
 from pandas import (
     DataFrame,
     concat

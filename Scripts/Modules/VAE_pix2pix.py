@@ -21,8 +21,8 @@ from tensorflow import (
     exp,
     abs
 )
+from .VAE2 import VAE2
 from time import time
-from .VAE import VAE
 from pandas import (
     DataFrame,
     concat
@@ -51,8 +51,12 @@ class VAE_pix2pix_model(Model):
         super(VAE_pix2pix_model,
               self).__init__(**kwargs)
         self.params = params
-        self.vae_dog = VAE(**params["VAE"])
-        self.vae_cat = VAE(**params["VAE"])
+        params_dog = params.copy()
+        params_dog["dataset"]["type"] = "dog"
+        params_cat = params.copy()
+        params_cat["dataset"]["type"] = "cat"
+        self.vae_dog = VAE2(params_dog)
+        self.vae_cat = VAE2(params_cat)
         self.generator_cat = pix2pix.unet_generator(
             OUTPUT_CHANNELS,
             norm_type='instancenorm',
@@ -87,7 +91,8 @@ class VAE_pix2pix_model(Model):
         self._create_checkpoint()
 
     def _create_checkpoint(self) -> None:
-        checkpoint_path = "../Checkpoint"
+        checkpoint_path = join(self.params["path checkpoint"],
+                               "cycleGAN")
         ckpt = Checkpoint(
             vae_dog=self.vae_dog,
             vae_cat=self.vae_cat,
@@ -118,36 +123,8 @@ class VAE_pix2pix_model(Model):
         '''
         with GradientTape(persistent=True) as tape:
             # predict
-            pred_dog = self.vae_dog.encoder_model(dog)
-            # predict
-            zd, zd_mean, zd_log_var = self.vae_dog.sampler_model(pred_dog)
-            pred_dog = self.vae_dog.decoder_model(zd)
-            # loss
-            rd_loss = self.vae_dog.r_loss_factor * self.vae_dog.mae(
-                dog,
-                pred_dog
-            )
-            kld_loss = 1 + zd_log_var - square(zd_mean) - exp(zd_log_var)
-            kld_loss = -0.5*kld_loss
-            kld_loss = reduce_mean(reduce_sum(kld_loss,
-                                              axis=1))
-            total_loss_dog = rd_loss + kld_loss
-
-            pred_cat = self.vae_cat.encoder_model(cat)
-            # predict
-            zc, zc_mean, zc_log_var = self.vae_cat.sampler_model(pred_cat)
-            pred_cat = self.vae_cat.decoder_model(zc)
-            # loss
-            rc_loss = self.vae_cat.r_loss_factor * self.vae_cat.mae(
-                cat,
-                pred_cat
-            )
-            klc_loss = 1 + zc_log_var - square(zc_mean) - exp(zc_log_var)
-            klc_loss = -0.5*klc_loss
-            klc_loss = reduce_mean(reduce_sum(klc_loss,
-                                              axis=1))
-            total_loss_cat = rc_loss + klc_loss
-
+            pred_dog = self.vae_dog.vae(dog)
+            pred_cat = self.vae_cat.vae(cat)
             fake_cat = self.generator_cat(
                 pred_dog,
                 training=True
@@ -214,11 +191,6 @@ class VAE_pix2pix_model(Model):
                                                  disc_fake_dog)
             disc_cat_loss = discriminator_loss()(disc_real_cat,
                                                  disc_fake_cat)
-        # Calculate the gradients for generator and discriminator
-        vae_dog_gradients = tape.gradient(total_loss_dog,
-                                          self.vae_dog.trainable_weights)
-        vae_cat_gradients = tape.gradient(total_loss_cat,
-                                          self.vae_cat.trainable_weights)
         generator_cat_gradients = tape.gradient(
             total_gen_cat_loss,
             self.generator_cat.trainable_variables
@@ -235,13 +207,6 @@ class VAE_pix2pix_model(Model):
             disc_dog_loss,
             self.discriminator_dog.trainable_variables
         )
-        # Apply the gradients to the optimizer
-        self.vae_dog.optimizer.apply_gradients(
-            zip(vae_dog_gradients,
-                self.vae_dog.trainable_weights))
-        self.vae_cat.optimizer.apply_gradients(
-            zip(vae_cat_gradients,
-                self.vae_cat.trainable_weights))
         self.generator_cat_optimizer.apply_gradients(
             zip(generator_cat_gradients,
                 self.generator_cat.trainable_variables)
@@ -258,15 +223,7 @@ class VAE_pix2pix_model(Model):
             zip(discriminator_dog_gradients,
                 self.discriminator_dog.trainable_variables)
         )
-        self.vae_dog.total_loss_tracker.update_state(total_loss_dog)
-        self.vae_dog.reconstruction_loss_tracker.update_state(rd_loss)
-        self.vae_dog.kl_loss_tracker.update_state(kld_loss)
-        self.vae_cat.total_loss_tracker.update_state(total_loss_cat)
-        self.vae_cat.reconstruction_loss_tracker.update_state(rc_loss)
-        self.vae_cat.kl_loss_tracker.update_state(klc_loss)
         loss_history = {
-            "kl_cat": self.vae_cat.kl_loss_tracker.result(),
-            "kl_dog": self.vae_dog.kl_loss_tracker.result(),
             "loss_cat": total_gen_cat_loss,
             "loss_dog": total_gen_dog_loss,
         }
@@ -296,9 +253,9 @@ class VAE_pix2pix_model(Model):
                 print(tabulate(history,
                                headers=history.columns))
             if (epoch + 1) % 50 == 0:
-                decoder_dog = self.vae_dog(dog_test)
+                decoder_dog = self.vae_dog.vae(dog_test)
                 gen_cat = self.generator_cat(decoder_dog)
-                decoder_cat = self.vae_cat(cat_test)
+                decoder_cat = self.vae_cat.vae(cat_test)
                 gen_dog = self.generator_dog(decoder_cat)
                 fig, axs = plt.subplots(2, 3,
                                         figsize=(15, 10))
@@ -325,6 +282,7 @@ class VAE_pix2pix_model(Model):
                 filename = str(epoch).zfill(5)
                 filename = f"Test_{filename}"
                 filename = join(self.params["path graphics"],
+                                "cycleGAN",
                                 filename)
                 plt.savefig(filename,
                             dpi=400)

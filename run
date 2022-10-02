@@ -11,5 +11,6 @@ conda activate tensorflow
 export TF_ENABLE_ONEDNN_OPTS=0
 hostname
 date
-python train.py
+python train_VAE.py dog
+python test_VAE.py dog
 date

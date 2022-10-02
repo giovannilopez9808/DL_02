@@ -21,10 +21,6 @@ params = get_params()
 params["dataset"]["type"] = argv[1]
 dataset = dataset_model(params)
 model = VAE(**params["VAE"])
-filename = f"VAE_{argv[1]}.h5"
-filename = join(params["path models"],
-                filename)
-model.load_weights(filename)
 
 image = list(dataset.train.take(1))[0]
 pred = model(image)

@@ -1,5 +1,6 @@
 def get_params() -> dict:
     params = {
+        "path checkpoint": "../Checkpoint",
         "path graphics": "../Graphics",
         "path models": "../Models",
         "path data": "../Data",
@@ -18,7 +19,7 @@ def get_params() -> dict:
             "latent_dim": 150,
             "summary": False,
         },
-        "epochs":500,
+        "epochs":10000,
         # "epochs":10,
     }
     return params

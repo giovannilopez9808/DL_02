@@ -9,6 +9,7 @@ from tensorflow.train import (
     CheckpointManager,
     Checkpoint
 )
+from os.path import join
 from tensorflow import (
     GradientTape,
     reduce_mean,
@@ -102,7 +103,7 @@ class VAE_pix2pix_model(Model):
         self.checkpoint = CheckpointManager(
             ckpt,
             checkpoint_path,
-            max_to_keep=5
+            max_to_keep=1
         )
         # if a checkpoint exists, restore the latest checkpoint.
         if self.checkpoint.latest_checkpoint:
@@ -199,13 +200,14 @@ class VAE_pix2pix_model(Model):
                 cat,
                 cycled_cat
             )
+            cycle_loss = cycle_loss_cat +cycle_loss_dog
             # Total generator loss = adversarial loss + cycle loss
             total_gen_cat_loss = gen_cat_loss
-            total_gen_cat_loss += cycle_loss_cat
+            total_gen_cat_loss += cycle_loss
             total_gen_cat_loss += identity_loss()(cat,
                                                   same_cat)
             total_gen_dog_loss = gen_dog_loss
-            total_gen_dog_loss += cycle_loss_dog
+            total_gen_dog_loss += cycle_loss
             total_gen_dog_loss += identity_loss()(dog,
                                                   same_dog)
             disc_dog_loss = discriminator_loss()(disc_real_dog,
@@ -293,10 +295,11 @@ class VAE_pix2pix_model(Model):
                                       history])
                 print(tabulate(history,
                                headers=history.columns))
-                decoder_dog = self.vae_dog(dog)
+            if (epoch + 1) % 50 == 0:
+                decoder_dog = self.vae_dog(dog_test)
                 gen_cat = self.generator_cat(decoder_dog)
-                decoder_cat = self.vae_cat(cat)
-                gen_dog = self.generator_dog(decoder_dog)
+                decoder_cat = self.vae_cat(cat_test)
+                gen_dog = self.generator_dog(decoder_cat)
                 fig, axs = plt.subplots(2, 3,
                                         figsize=(15, 10))
                 axs = axs.flatten()
@@ -319,13 +322,13 @@ class VAE_pix2pix_model(Model):
                            gen_dog,
                            "dog generate")
                 plt.tight_layout(pad=2)
-                filename = str(i).zfill(5)
+                filename = str(epoch).zfill(5)
                 filename = f"Test_{filename}"
-                filename = join(params["path graphics"],
+                filename = join(self.params["path graphics"],
                                 filename)
                 plt.savefig(filename,
                             dpi=400)
-            if (epoch + 1) % 100 == 0:
+                plt.close()
                 _ = self.checkpoint.save()
                 print(f'\nSaving checkpoint  epoch {epoch+1}')
             final_time = time()-start

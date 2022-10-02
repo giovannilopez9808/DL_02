@@ -9,7 +9,7 @@ params["dataset"]["type"] = "all"
 dataset = dataset_model(params)
 model = VAE_pix2pix_model(params)
 print(params["epochs"])
-history = model.fit(dataset.train,
+history = model.fit(dataset,
                     epochs=params["epochs"])
 history = DataFrame(history)
 filename = "../cycleGAN_history.csv"

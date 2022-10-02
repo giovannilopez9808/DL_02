@@ -1,12 +1,13 @@
 def get_params() -> dict:
     params = {
+        "path graphics": "../Graphics",
         "path models": "../Models",
         "path data": "../Data",
         "log path": "../log",
         "dataset": {
             "train": {
                 "image_size": (256, 256),
-                "batch_size": 18,
+                "batch_size": 1,
                 "shuffle": True,
                 "labels": None,
             },
@@ -17,7 +18,7 @@ def get_params() -> dict:
             "latent_dim": 150,
             "summary": False,
         },
-        "epochs":50000,
+        "epochs":10000,
         # "epochs":10,
     }
     return params

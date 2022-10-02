@@ -50,6 +50,9 @@ class dataset_model:
         else:
             self.train = Dataset.zip((dog_dataset,
                                       cat_dataset))
+        size = self.train.cardinality().numpy()
+        self.test = self.train.take(1)
+        self.train = self.train.skip(1).take(size-1)
 
     def _normalization_dataset(self,
                                dataset: Dataset) -> Dataset:

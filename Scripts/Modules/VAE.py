@@ -25,29 +25,6 @@ from tensorflow import (
     shape,
     exp
 )
-<<<<<<< HEAD
-from time import time
-from pandas import (
-    DataFrame,
-    concat
-)
-from numpy import array
-from keras import Model
-loss_obj = BinaryCrossentropy(from_logits=True)
-OUTPUT_CHANNELS = 3
-LAMBDA = 10
-
-
-def plot_image(ax: plt.subplot,
-               image: array,
-               label: str) -> None:
-    image = image[0]
-    image = (image+1)/2
-    ax.set_title(label)
-    ax.imshow(image)
-    ax.axis("off")
-=======
->>>>>>> parent of af843d34 (Delete useless VAE)
 
 
 class VAE(Model):

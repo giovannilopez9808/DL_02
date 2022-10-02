@@ -41,6 +41,8 @@ plt.tight_layout(pad=2)
 filename = f"VAE_{argv[1]}_train.png"
 filename = join("..",
                 filename)
+plt.savefig(filename,
+            dpi=400)
 
 image = list(dataset.test.take(1))[0]
 pred = model(image)
@@ -57,3 +59,5 @@ plt.tight_layout(pad=2)
 filename = f"VAE_{argv[1]}_test.png"
 filename = join("..",
                 filename)
+plt.savefig(filename,
+            dpi=400)

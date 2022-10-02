@@ -200,7 +200,7 @@ class VAE_pix2pix_model(Model):
                 cat,
                 cycled_cat
             )
-            cycle_loss = cycle_loss_cat +cycle_loss_dog
+            cycle_loss = cycle_loss_cat + cycle_loss_dog
             # Total generator loss = adversarial loss + cycle loss
             total_gen_cat_loss = gen_cat_loss
             total_gen_cat_loss += cycle_loss

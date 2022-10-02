@@ -32,7 +32,7 @@ class VAE(Model):
                  r_loss_factor: int,
                  input_dim: int,
                  latent_dim: int,
-                 summary=False,
+                 summary: bool = False,
                  **kwargs):
         super(VAE, self).__init__(**kwargs)
 

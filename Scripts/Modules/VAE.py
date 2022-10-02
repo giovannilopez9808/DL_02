@@ -99,7 +99,7 @@ class VAE(Model):
     def train_step(self, data):
         '''
         '''
-        with GradientTape() as tape:
+        with GradientTape(persistent=True) as tape:
 
             # predict
             x = self.encoder_model(data)

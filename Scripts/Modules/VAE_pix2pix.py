@@ -94,8 +94,6 @@ class VAE_pix2pix_model(Model):
         checkpoint_path = join(self.params["path checkpoint"],
                                "cycleGAN")
         ckpt = Checkpoint(
-            vae_dog=self.vae_dog,
-            vae_cat=self.vae_cat,
             generator_cat=self.generator_cat,
             generator_dog=self.generator_dog,
             discriminator_cat=self.discriminator_cat,

@@ -36,7 +36,7 @@ plot_image(axs[1],
            "decoder dog")
 plt.tight_layout(pad=2)
 filename = f"VAE_{argv[1]}_train.png"
-filename = join("..",
+filename = join(params["path graphics"],
                 filename)
 plt.savefig(filename,
             dpi=400)
@@ -54,7 +54,7 @@ plot_image(axs[1],
            "decoder dog")
 plt.tight_layout(pad=2)
 filename = f"VAE_{argv[1]}_test.png"
-filename = join("..",
+filename = join(params["path graphics"],
                 filename)
 plt.savefig(filename,
             dpi=400)

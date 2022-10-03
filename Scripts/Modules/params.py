@@ -4,7 +4,7 @@ def get_params() -> dict:
         "path graphics": "../Graphics",
         "path models": "../Models",
         "path data": "../Data",
-        "log path": "../log",
+        "path log": "../log",
         "dataset": {
             "train": {
                 "image_size": (256, 256),

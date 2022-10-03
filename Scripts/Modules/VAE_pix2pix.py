@@ -8,7 +8,10 @@ from tensorflow.train import (
     CheckpointManager,
     Checkpoint
 )
-from .pix2pix import pix2pix
+from .pix2pix import (
+    unet_generator,
+    discriminator
+)
 from os.path import join
 from tensorflow import (
     GradientTape,
@@ -56,19 +59,19 @@ class VAE_pix2pix_model(Model):
                             "cat")
         self.vae_dog = VAE2(params_dog,
                             "dog")
-        self.generator_cat = pix2pix.unet_generator(
+        self.generator_cat = unet_generator(
             OUTPUT_CHANNELS,
             norm_type='instancenorm',
         )
-        self.generator_dog = pix2pix.unet_generator(
+        self.generator_dog = unet_generator(
             OUTPUT_CHANNELS,
             norm_type='instancenorm'
         )
-        self.discriminator_cat = pix2pix.discriminator(
+        self.discriminator_cat = discriminator(
             norm_type='instancenorm',
             target=False
         )
-        self.discriminator_dog = pix2pix.discriminator(
+        self.discriminator_dog = discriminator(
             norm_type='instancenorm',
             target=False
         )

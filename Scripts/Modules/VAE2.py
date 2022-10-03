@@ -63,7 +63,7 @@ class VAE2(Model):
         # if a checkpoint exists, restore the latest checkpoint.
         if self.checkpoint.latest_checkpoint:
             ckpt.restore(self.checkpoint.latest_checkpoint)
-            print('Latest checkpoint restored!!')
+            print(f'Model VAE {image_type}')
 
     @function
     def train_step(self,

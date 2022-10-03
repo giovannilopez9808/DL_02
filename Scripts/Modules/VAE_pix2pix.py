@@ -341,4 +341,4 @@ class identity_loss(Loss):
              real_image,
              same_image):
         loss = reduce_mean(abs(real_image - same_image))
-        return LAMBDA * 1.5 * loss
+        return LAMBDA * 0.5 * loss

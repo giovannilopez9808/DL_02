@@ -236,7 +236,7 @@ class VAE_pix2pix_model(Model):
             dataset: Dataset,
             epochs: int) -> DataFrame:
         history_all = DataFrame()
-        dog_test, cat_test = list(dataset.train.take(1))[0]
+        dog_test, cat_test = list(dataset.test.take(1))[0]
         for epoch in range(1,
                            epochs+1):
             start = time()

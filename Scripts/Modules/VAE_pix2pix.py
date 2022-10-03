@@ -1,4 +1,3 @@
-from tensorflow_examples.models.pix2pix import pix2pix
 from keras.losses import BinaryCrossentropy
 from tensorflow.data import Dataset
 from keras.optimizers import Adam
@@ -9,17 +8,15 @@ from tensorflow.train import (
     CheckpointManager,
     Checkpoint
 )
+from .pix2pix import pix2pix
 from os.path import join
 from tensorflow import (
     GradientTape,
     reduce_mean,
-    reduce_sum,
     zeros_like,
     ones_like,
     function,
-    square,
     exp,
-    abs
 )
 from .VAE2 import VAE2
 from time import time

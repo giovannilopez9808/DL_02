@@ -213,7 +213,7 @@ def downsample(filters, size, norm_type='batchnorm', apply_norm=True):
             result.add(InstanceNormalization())
 
     # Modified
-    result.add(tf.keras.layers.tanh())
+    result.add(tf.keras.layers.Activation("tanh"))
     # result.add(tf.keras.layers.LeakyReLU())
 
     return result
@@ -252,7 +252,7 @@ def upsample(filters, size, norm_type='batchnorm', apply_dropout=False):
         result.add(tf.keras.layers.Dropout(0.5))
 
     # Modified
-    result.add(tf.keras.layers.tanh())
+    result.add(tf.keras.layers.Activation("tanh"))
     # result.add(tf.keras.layers.ReLU())
 
     return result

@@ -12,6 +12,8 @@ print(params["epochs"])
 history = model.fit(dataset,
                     epochs=params["epochs"])
 history = DataFrame(history)
-filename = "../cycleGAN_history.csv"
+filename = "cycleGAN_history.csv"
+filename = join(params["path log"],
+                filename)
 history.to_csv(filename,
                index=False)

@@ -146,11 +146,11 @@ class VAE_pix2pix_model(Model):
             )
             # same_x and same_y are used for identity loss.
             same_dog = self.generator_dog(
-                dog,
+                pred_dog,
                 training=True
             )
             same_cat = self.generator_cat(
-                cat,
+                pred_cat,
                 training=True
             )
             disc_real_cat = self.discriminator_cat(
@@ -256,11 +256,11 @@ class VAE_pix2pix_model(Model):
                 print(tabulate(history,
                                headers=history.columns))
             if (epoch + 1) % 50 == 0:
-                fig, axs = plt.subplots(2, 3,
-                                        figsize=(15, 10))
+                fig, axs = plt.subplots(2, 4,
+                                        figsize=(20, 10))
                 axs = axs.flatten()
                 decoder_dog = self.vae_dog.vae(dog_test)
-                # gen_cat = self.generator_cat(dog_test)
+                same_dog = self.generator_dog(decoder_dog)
                 gen_cat = self.generator_cat(decoder_dog)
                 plot_image(axs[0],
                            dog_test,
@@ -271,19 +271,25 @@ class VAE_pix2pix_model(Model):
                 plot_image(axs[2],
                            gen_cat,
                            "cat generate")
+                plot_image(axs[3],
+                           same_dog,
+                           "same dog")
 
                 decoder_cat = self.vae_cat.vae(cat_test)
-                # gen_dog = self.generator_dog(cat_test)
                 gen_dog = self.generator_dog(decoder_cat)
-                plot_image(axs[3],
+                same_cat = self.generator_cat(decoder_cat)
+                plot_image(axs[4],
                            cat_test,
                            "cat")
-                plot_image(axs[4],
+                plot_image(axs[5],
                            decoder_cat,
                            "decoder cat")
-                plot_image(axs[5],
+                plot_image(axs[6],
                            gen_dog,
                            "dog generate")
+                plot_image(axs[7],
+                           same_cat,
+                           "same cat")
                 plt.tight_layout(pad=2)
                 filename = str(epoch).zfill(5)
                 filename = f"Test_{filename}"

@@ -47,7 +47,10 @@ plot_image(axs[5],
            gen_dog,
            "dog generate")
 plt.tight_layout(pad=2)
-plt.savefig("train_cycleGAN.png")
+filename = "train_cycleGAN.png"
+filename = join(params["path graphics"],
+                filename)
+plt.savefig(filename)
 
 dog, cat = list(dataset.test.take(1))[0]
 pred_dog = model.vae_dog(dog)
@@ -76,4 +79,7 @@ plot_image(axs[5],
            gen_dog,
            "dog generate")
 plt.tight_layout(pad=2)
-plt.savefig("test_cycleGAN.png")
+filename = "test_cycleGAN.png"
+filename = join(params["path graphics"],
+                filename)
+plt.savefig(filename)

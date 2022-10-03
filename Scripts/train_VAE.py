@@ -8,7 +8,8 @@ from sys import argv
 params = get_params()
 params["dataset"]["type"] = argv[1]
 dataset = dataset_model(params)
-model = VAE2(params)
+model = VAE2(params,
+             argv[1])
 history = model.fit(dataset,
                     epochs=params["epochs"])
 history = DataFrame(history)

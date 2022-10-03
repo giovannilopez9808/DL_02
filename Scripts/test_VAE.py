@@ -20,10 +20,10 @@ def plot_image(ax: plt.subplot,
 params = get_params()
 params["dataset"]["type"] = argv[1]
 dataset = dataset_model(params)
-model = VAE2(params)
+model = VAE2(params,
+             argv[1])
 
 image = list(dataset.train.take(1))[0]
-print(image.shape)
 pred = model.vae(image)
 fig, axs = plt.subplots(1, 2,
                         figsize=(10, 5))

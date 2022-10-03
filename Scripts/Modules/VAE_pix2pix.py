@@ -55,8 +55,10 @@ class VAE_pix2pix_model(Model):
         params_dog["dataset"]["type"] = "dog"
         params_cat = params.copy()
         params_cat["dataset"]["type"] = "cat"
-        self.vae_dog = VAE2(params_dog)
-        self.vae_cat = VAE2(params_cat)
+        self.vae_cat = VAE2(params_cat,
+                            "cat")
+        self.vae_dog = VAE2(params_dog,
+                            "dog")
         self.generator_cat = pix2pix.unet_generator(
             OUTPUT_CHANNELS,
             norm_type='instancenorm',
@@ -110,8 +112,9 @@ class VAE_pix2pix_model(Model):
         )
         # if a checkpoint exists, restore the latest checkpoint.
         if self.checkpoint.latest_checkpoint:
+            print("aqui")
             ckpt.restore(self.checkpoint.latest_checkpoint)
-            print('Latest checkpoint restored!!')
+            print('Load cycleGAN model')
 
     @function
     def train_step(self,
@@ -123,6 +126,8 @@ class VAE_pix2pix_model(Model):
             # predict
             pred_dog = self.vae_dog.vae(dog)
             pred_cat = self.vae_cat.vae(cat)
+            # pred_dog = dog
+            # pred_cat = cat
             fake_cat = self.generator_cat(
                 pred_dog,
                 training=True
@@ -231,7 +236,7 @@ class VAE_pix2pix_model(Model):
             dataset: Dataset,
             epochs: int) -> DataFrame:
         history_all = DataFrame()
-        dog_test, cat_test = list(dataset.test.take(1))[0]
+        dog_test, cat_test = list(dataset.train.take(1))[0]
         for epoch in range(1,
                            epochs+1):
             start = time()
@@ -251,13 +256,12 @@ class VAE_pix2pix_model(Model):
                 print(tabulate(history,
                                headers=history.columns))
             if (epoch + 1) % 50 == 0:
-                decoder_dog = self.vae_dog.vae(dog_test)
-                gen_cat = self.generator_cat(decoder_dog)
-                decoder_cat = self.vae_cat.vae(cat_test)
-                gen_dog = self.generator_dog(decoder_cat)
                 fig, axs = plt.subplots(2, 3,
                                         figsize=(15, 10))
                 axs = axs.flatten()
+                decoder_dog = self.vae_dog.vae(dog_test)
+                # gen_cat = self.generator_cat(dog_test)
+                gen_cat = self.generator_cat(decoder_dog)
                 plot_image(axs[0],
                            dog_test,
                            "dog")
@@ -267,6 +271,10 @@ class VAE_pix2pix_model(Model):
                 plot_image(axs[2],
                            gen_cat,
                            "cat generate")
+
+                decoder_cat = self.vae_cat.vae(cat_test)
+                # gen_dog = self.generator_dog(cat_test)
+                gen_dog = self.generator_dog(decoder_cat)
                 plot_image(axs[3],
                            cat_test,
                            "cat")

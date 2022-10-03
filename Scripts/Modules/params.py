@@ -8,7 +8,7 @@ def get_params() -> dict:
         "dataset": {
             "train": {
                 "image_size": (256, 256),
-                "batch_size": 1,
+                "batch_size": 8,
                 "shuffle": True,
                 "labels": None,
             },
@@ -20,6 +20,6 @@ def get_params() -> dict:
             "summary": False,
         },
         "epochs": 10000,
-        # "epochs":10,
+        # "epochs":0,
     }
     return params

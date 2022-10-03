@@ -41,15 +41,16 @@ def plot_image(ax: plt.subplot,
 class VAE2(Model):
     def __init__(self,
                  params: dict,
+                 image_type:str="dog",
                  **kwargs) -> None:
         super(VAE2,
               self).__init__(**kwargs)
         self.params = params
         self.vae = VAE(**params["VAE"])
-        self._create_checkpoint()
+        self._create_checkpoint(image_type)
 
-    def _create_checkpoint(self) -> None:
-        image_type = self.params["dataset"]["type"]
+    def _create_checkpoint(self,
+                           image_type:str) -> None:
         checkpoint_path = join(self.params["path checkpoint"],
                                image_type)
         ckpt = Checkpoint(

@@ -110,6 +110,7 @@ class VAE2(Model):
                            epochs+1):
             start = time()
             print(f"Epoch {epoch}")
+            history_epoch = DataFrame()
             for i, image in dataset.train.enumerate():
                 i = i.numpy()
                 history = self.train_step(image)
@@ -119,10 +120,14 @@ class VAE2(Model):
                                     index=history.keys())
                 history = history.T
                 history.index = [i]
-                history_all = concat([history_all,
-                                      history])
-            print(tabulate(history,
-                           headers=history.columns))
+                history_epoch = concat([history_epoch,
+                                        history])
+            history_epoch = DataFrame(history_epoch.mean())
+            history_epoch.index=[epoch]
+            history_all = concat([history_all,
+                                  history_epoch])
+            print(tabulate(history_epoch,
+                           headers=history_epoch.columns))
             decoder = self.vae(image_test)
             fig, axs = plt.subplots(1, 2,
                                     figsize=(10, 5))

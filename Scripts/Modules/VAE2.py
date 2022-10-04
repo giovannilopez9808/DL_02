@@ -110,7 +110,7 @@ class VAE2(Model):
                            epochs+1):
             start = time()
             print(f"Epoch {epoch}")
-            for i, image in dataset.train.take(1).enumerate():
+            for i, image in dataset.train.enumerate():
                 i = i.numpy()
                 history = self.train_step(image)
                 values = map(lambda loss: loss.numpy(),
@@ -121,28 +121,28 @@ class VAE2(Model):
                 history.index = [i]
                 history_all = concat([history_all,
                                       history])
-                print(tabulate(history,
-                               headers=history.columns))
-            if (epoch + 1) % 50 == 0:
-                decoder = self.vae(image_test)
-                fig, axs = plt.subplots(1, 2,
-                                        figsize=(10, 5))
-                axs = axs.flatten()
-                plot_image(axs[0],
-                           image_test,
-                           "image")
-                plot_image(axs[1],
-                           decoder,
-                           "decoder image")
-                plt.tight_layout(pad=2)
-                filename = str(epoch).zfill(5)
-                filename = f"Test_{filename}"
-                filename = join(self.params["path graphics"],
-                                self.params["dataset"]["type"],
-                                filename)
-                plt.savefig(filename,
-                            dpi=400)
-                plt.close()
+            print(tabulate(history,
+                           headers=history.columns))
+            decoder = self.vae(image_test)
+            fig, axs = plt.subplots(1, 2,
+                                    figsize=(10, 5))
+            axs = axs.flatten()
+            plot_image(axs[0],
+                       image_test,
+                       "image")
+            plot_image(axs[1],
+                       decoder,
+                       "decoder image")
+            plt.tight_layout(pad=2)
+            filename = str(epoch).zfill(5)
+            filename = f"Test_{filename}"
+            filename = join(self.params["path graphics"],
+                            self.params["dataset"]["type"],
+                            filename)
+            plt.savefig(filename,
+                        dpi=400)
+            plt.close()
+            if epoch % 50 == 0:
                 _ = self.checkpoint.save()
                 print(f'\nSaving checkpoint  epoch {epoch+1}')
             final_time = time()-start

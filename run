@@ -1,7 +1,7 @@
 #!/bin/bash
 ##SBATCH --partition=C1Mitad1
 #SBATCH --partition=GPU
-#SBATCH --job-name=Cat2Dog
+#SBATCH --job-name=Vae_CAT
 #SBATCH --output=results.log
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=giovanni.lopez@cimat.mx

@@ -1,3 +1,372 @@
 g-0-2
-Mon 03 Oct 2022 11:06:48 PM CDT
-slurmstepd: error: *** JOB 15787 ON g-0-2 CANCELLED AT 2022-10-03T23:06:55 ***
+Mon 03 Oct 2022 11:36:24 PM CDT
+2022-10-03 23:36:31.645261: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-10-03 23:36:32.686492: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory:  -> device: 0, name: NVIDIA TITAN RTX, pci bus id: 0000:18:00.0, compute capability: 7.5
+2022-10-03 23:36:32.687148: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 22844 MB memory:  -> device: 1, name: NVIDIA TITAN RTX, pci bus id: 0000:86:00.0, compute capability: 7.5
+2022-10-03 23:36:44.003807: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8302
+2022-10-03 23:36:44.719318: I tensorflow/core/platform/default/subprocess.cc:304] Start cannot spawn child process: No such file or directory
+Found 12500 files belonging to 1 classes.
+Found 12500 files belonging to 1 classes.
+Epoch 1
+          0
+--  -------
+ 1  233.161
+
+Time taken for epoch 2 is 33.90374040603638 sec
+
+Epoch 2
+          0
+--  -------
+ 2  329.518
+
+Time taken for epoch 3 is 24.308767080307007 sec
+
+Epoch 3
+          0
+--  -------
+ 3  340.842
+
+Time taken for epoch 4 is 27.544898748397827 sec
+
+Epoch 4
+      0
+--  ---
+ 4  351
+
+Time taken for epoch 5 is 26.449748754501343 sec
+
+Epoch 5
+          0
+--  -------
+ 5  357.743
+
+Time taken for epoch 6 is 26.8553786277771 sec
+
+Epoch 6
+          0
+--  -------
+ 6  362.931
+
+Time taken for epoch 7 is 26.689589738845825 sec
+
+Epoch 7
+          0
+--  -------
+ 7  366.927
+
+Time taken for epoch 8 is 24.94355583190918 sec
+
+Epoch 8
+          0
+--  -------
+ 8  370.359
+
+Time taken for epoch 9 is 24.6758713722229 sec
+
+Epoch 9
+          0
+--  -------
+ 9  373.651
+
+Time taken for epoch 10 is 24.710105657577515 sec
+
+Epoch 10
+          0
+--  -------
+10  376.834
+
+Time taken for epoch 11 is 26.75608777999878 sec
+
+Epoch 11
+          0
+--  -------
+11  379.869
+
+Time taken for epoch 12 is 26.23874044418335 sec
+
+Epoch 12
+          0
+--  -------
+12  382.709
+
+Time taken for epoch 13 is 25.389689207077026 sec
+
+Epoch 13
+          0
+--  -------
+13  385.505
+
+Time taken for epoch 14 is 26.56178903579712 sec
+
+Epoch 14
+          0
+--  -------
+14  388.148
+
+Time taken for epoch 15 is 26.45200777053833 sec
+
+Epoch 15
+          0
+--  -------
+15  390.705
+
+Time taken for epoch 16 is 26.189833402633667 sec
+
+Epoch 16
+          0
+--  -------
+16  393.196
+
+Time taken for epoch 17 is 25.996668577194214 sec
+
+Epoch 17
+          0
+--  -------
+17  395.546
+
+Time taken for epoch 18 is 25.636609077453613 sec
+
+Epoch 18
+          0
+--  -------
+18  397.759
+
+Time taken for epoch 19 is 25.544499397277832 sec
+
+Epoch 19
+          0
+--  -------
+19  399.857
+
+Time taken for epoch 20 is 26.514143228530884 sec
+
+Epoch 20
+          0
+--  -------
+20  401.831
+
+Time taken for epoch 21 is 26.92669701576233 sec
+
+Epoch 21
+          0
+--  -------
+21  403.761
+
+Time taken for epoch 22 is 26.97577714920044 sec
+
+Epoch 22
+          0
+--  -------
+22  405.526
+
+Time taken for epoch 23 is 26.636487007141113 sec
+
+Epoch 23
+          0
+--  -------
+23  407.214
+
+Time taken for epoch 24 is 26.986631393432617 sec
+
+Epoch 24
+          0
+--  -------
+24  408.817
+
+Time taken for epoch 25 is 26.031699657440186 sec
+
+Epoch 25
+         0
+--  ------
+25  410.37
+
+Time taken for epoch 26 is 26.49169397354126 sec
+
+Epoch 26
+         0
+--  ------
+26  411.83
+
+Time taken for epoch 27 is 27.100786685943604 sec
+
+Epoch 27
+          0
+--  -------
+27  413.257
+
+Time taken for epoch 28 is 25.534727573394775 sec
+
+Epoch 28
+          0
+--  -------
+28  414.614
+
+Time taken for epoch 29 is 26.02167582511902 sec
+
+Epoch 29
+        0
+--  -----
+29  415.9
+
+Time taken for epoch 30 is 25.78963041305542 sec
+
+Epoch 30
+          0
+--  -------
+30  417.135
+
+Time taken for epoch 31 is 27.37743067741394 sec
+
+Epoch 31
+          0
+--  -------
+31  418.334
+
+Time taken for epoch 32 is 26.566483736038208 sec
+
+Epoch 32
+          0
+--  -------
+32  419.463
+
+Time taken for epoch 33 is 26.359694480895996 sec
+
+Epoch 33
+          0
+--  -------
+33  420.575
+
+Time taken for epoch 34 is 26.166505098342896 sec
+
+Epoch 34
+          0
+--  -------
+34  421.645
+
+Time taken for epoch 35 is 27.57402491569519 sec
+
+Epoch 35
+         0
+--  ------
+35  422.64
+
+Time taken for epoch 36 is 26.254356622695923 sec
+
+Epoch 36
+          0
+--  -------
+36  423.592
+
+Time taken for epoch 37 is 26.158845901489258 sec
+
+Epoch 37
+          0
+--  -------
+37  424.529
+
+Time taken for epoch 38 is 25.27181100845337 sec
+
+Epoch 38
+          0
+--  -------
+38  425.425
+
+Time taken for epoch 39 is 27.195014238357544 sec
+
+Epoch 39
+          0
+--  -------
+39  426.297
+
+Time taken for epoch 40 is 25.88158893585205 sec
+
+Epoch 40
+          0
+--  -------
+40  427.126
+
+Time taken for epoch 41 is 27.011844158172607 sec
+
+Epoch 41
+         0
+--  ------
+41  427.92
+
+Time taken for epoch 42 is 26.80711078643799 sec
+
+Epoch 42
+          0
+--  -------
+42  428.794
+
+Time taken for epoch 43 is 26.727338314056396 sec
+
+Epoch 43
+          0
+--  -------
+43  429.763
+
+Time taken for epoch 44 is 25.978641033172607 sec
+
+Epoch 44
+          0
+--  -------
+44  430.662
+
+Time taken for epoch 45 is 26.107889890670776 sec
+
+Epoch 45
+          0
+--  -------
+45  431.516
+
+Time taken for epoch 46 is 26.133493423461914 sec
+
+Epoch 46
+          0
+--  -------
+46  432.331
+
+Time taken for epoch 47 is 27.23615026473999 sec
+
+Epoch 47
+          0
+--  -------
+47  433.071
+
+Time taken for epoch 48 is 26.46717071533203 sec
+
+Epoch 48
+          0
+--  -------
+48  433.812
+
+Time taken for epoch 49 is 26.727798461914062 sec
+
+Epoch 49
+          0
+--  -------
+49  434.553
+
+Time taken for epoch 50 is 26.966556549072266 sec
+
+Epoch 50
+          0
+--  -------
+50  435.292
+
+Saving checkpoint  epoch 51
+
+Time taken for epoch 51 is 25.73119044303894 sec
+
+2022-10-03 23:58:51.980296: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-10-03 23:58:52.972284: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory:  -> device: 0, name: NVIDIA TITAN RTX, pci bus id: 0000:18:00.0, compute capability: 7.5
+2022-10-03 23:58:52.972991: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 22844 MB memory:  -> device: 1, name: NVIDIA TITAN RTX, pci bus id: 0000:86:00.0, compute capability: 7.5
+2022-10-03 23:58:59.860014: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8302
+2022-10-03 23:59:00.562843: I tensorflow/core/platform/default/subprocess.cc:304] Start cannot spawn child process: No such file or directory
+Found 12500 files belonging to 1 classes.
+Found 12500 files belonging to 1 classes.
+Model VAE cat
+Mon 03 Oct 2022 11:59:08 PM CDT

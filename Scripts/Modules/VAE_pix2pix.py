@@ -241,7 +241,7 @@ class VAE_pix2pix_model(Model):
                            epochs+1):
             start = time()
             print(f"Epoch {epoch}")
-            for i, (dog, cat) in dataset.train.take(1).enumerate():
+            for i, (dog, cat) in dataset.train.enumerate():
                 i = i.numpy()
                 history = self.train_step(dog,
                                           cat)

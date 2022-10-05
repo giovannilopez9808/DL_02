@@ -26,7 +26,7 @@ class dataset_model:
 
     def _read_train_dataset(self) -> Dataset:
         path = join(self.params["path data"],
-                    "train")
+                    "train_test")
         dog_path = join(path,
                         "dog")
         cat_path = join(path,

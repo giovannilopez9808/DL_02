@@ -1,3 +1,4 @@
+from tensorflow_examples.models.pix2pix import pix2pix
 from keras.losses import BinaryCrossentropy
 from tensorflow.data import Dataset
 from keras.optimizers import Adam
@@ -8,10 +9,6 @@ from tensorflow.train import (
     CheckpointManager,
     Checkpoint
 )
-from .pix2pix import (
-    unet_generator,
-    discriminator
-)
 from os.path import join
 from tensorflow import (
     GradientTape,
@@ -19,7 +16,6 @@ from tensorflow import (
     zeros_like,
     ones_like,
     function,
-    exp,
 )
 from .VAE2 import VAE2
 from time import time
@@ -59,19 +55,19 @@ class VAE_pix2pix_model(Model):
                             "cat")
         self.vae_dog = VAE2(params_dog,
                             "dog")
-        self.generator_cat = unet_generator(
+        self.generator_cat = pix2pix.unet_generator(
             OUTPUT_CHANNELS,
             norm_type='instancenorm',
         )
-        self.generator_dog = unet_generator(
+        self.generator_dog = pix2pix.unet_generator(
             OUTPUT_CHANNELS,
             norm_type='instancenorm'
         )
-        self.discriminator_cat = discriminator(
+        self.discriminator_cat = pix2pix.discriminator(
             norm_type='instancenorm',
             target=False
         )
-        self.discriminator_dog = discriminator(
+        self.discriminator_dog = pix2pix.discriminator(
             norm_type='instancenorm',
             target=False
         )
@@ -96,8 +92,8 @@ class VAE_pix2pix_model(Model):
         checkpoint_path = join(self.params["path checkpoint"],
                                "cycleGAN")
         ckpt = Checkpoint(
-            generator_cat=self.generator_cat,
-            generator_dog=self.generator_dog,
+            # generator_cat=self.generator_cat,
+            # generator_dog=self.generator_dog,
             discriminator_cat=self.discriminator_cat,
             discriminator_dog=self.discriminator_dog,
             generator_cat_optimizer=self.generator_cat_optimizer,

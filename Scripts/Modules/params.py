@@ -8,19 +8,18 @@ def get_params() -> dict:
         "dataset": {
             "train": {
                 "image_size": (256, 256),
-                "batch_size": 64,
-                # "batch_size": 1,
+                "batch_size": 1,
                 "shuffle": True,
                 "labels": None,
             },
         },
         "VAE": {
             "input_dim": (256, 256, 3),
-            "r_loss_factor": 100000,
-            "latent_dim": 150,
+            "r_loss_factor": 1000000,
+            "latent_dim": 600,
             "summary": False,
         },
-        "epochs": 3000,
+        "epochs": 1000,
         # "epochs": 50,
     }
     return params

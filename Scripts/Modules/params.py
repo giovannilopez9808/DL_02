@@ -20,6 +20,5 @@ def get_params() -> dict:
             "summary": False,
         },
         "epochs": 1000,
-        # "epochs": 50,
     }
     return params

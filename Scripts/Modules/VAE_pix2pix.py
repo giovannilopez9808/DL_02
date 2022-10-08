@@ -249,54 +249,53 @@ class VAE_pix2pix_model(Model):
                 history.index = [i]
                 history_all = concat([history_all,
                                       history])
-                print(tabulate(history,
-                               headers=history.columns))
-            if (epoch + 1) % 50 == 0:
-                fig, axs = plt.subplots(2, 4,
-                                        figsize=(20, 10))
-                axs = axs.flatten()
-                decoder_dog = self.vae_dog.vae(dog_test)
-                same_dog = self.generator_dog(decoder_dog)
-                gen_cat = self.generator_cat(decoder_dog)
-                plot_image(axs[0],
-                           dog_test,
-                           "dog")
-                plot_image(axs[1],
-                           decoder_dog,
-                           "decoder dog")
-                plot_image(axs[2],
-                           gen_cat,
-                           "cat generate")
-                plot_image(axs[3],
-                           same_dog,
-                           "same dog")
+            print(tabulate(history,
+                           headers=history.columns))
+            fig, axs = plt.subplots(2, 4,
+                                    figsize=(20, 10))
+            axs = axs.flatten()
+            decoder_dog = self.vae_dog.vae(dog_test)
+            same_dog = self.generator_dog(decoder_dog)
+            gen_cat = self.generator_cat(decoder_dog)
+            plot_image(axs[0],
+                       dog_test,
+                       "dog")
+            plot_image(axs[1],
+                       decoder_dog,
+                       "decoder dog")
+            plot_image(axs[2],
+                       gen_cat,
+                       "cat generate")
+            plot_image(axs[3],
+                       same_dog,
+                       "same dog")
 
-                decoder_cat = self.vae_cat.vae(cat_test)
-                gen_dog = self.generator_dog(decoder_cat)
-                same_cat = self.generator_cat(decoder_cat)
-                plot_image(axs[4],
-                           cat_test,
-                           "cat")
-                plot_image(axs[5],
-                           decoder_cat,
-                           "decoder cat")
-                plot_image(axs[6],
-                           gen_dog,
-                           "dog generate")
-                plot_image(axs[7],
-                           same_cat,
-                           "same cat")
-                plt.tight_layout(pad=2)
-                filename = str(epoch).zfill(5)
-                filename = f"Test_{filename}"
-                filename = join(self.params["path graphics"],
-                                "cycleGAN",
-                                filename)
-                plt.savefig(filename,
-                            dpi=400)
-                plt.close()
-                _ = self.checkpoint.save()
-                print(f'\nSaving checkpoint  epoch {epoch+1}')
+            decoder_cat = self.vae_cat.vae(cat_test)
+            gen_dog = self.generator_dog(decoder_cat)
+            same_cat = self.generator_cat(decoder_cat)
+            plot_image(axs[4],
+                       cat_test,
+                       "cat")
+            plot_image(axs[5],
+                       decoder_cat,
+                       "decoder cat")
+            plot_image(axs[6],
+                       gen_dog,
+                       "dog generate")
+            plot_image(axs[7],
+                       same_cat,
+                       "same cat")
+            plt.tight_layout(pad=2)
+            filename = str(epoch).zfill(5)
+            filename = f"Test_{filename}"
+            filename = join(self.params["path graphics"],
+                            "cycleGAN",
+                            filename)
+            plt.savefig(filename,
+                        dpi=400)
+            plt.close()
+            _ = self.checkpoint.save()
+            print(f'\nSaving checkpoint  epoch {epoch+1}')
             final_time = time()-start
             print('\nTime taken for epoch {} is {} sec\n'.format(epoch + 1,
                                                                  final_time))

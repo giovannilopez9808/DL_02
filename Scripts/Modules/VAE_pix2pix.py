@@ -92,8 +92,8 @@ class VAE_pix2pix_model(Model):
         checkpoint_path = join(self.params["path checkpoint"],
                                "cycleGAN")
         ckpt = Checkpoint(
-            # generator_cat=self.generator_cat,
-            # generator_dog=self.generator_dog,
+            generator_cat=self.generator_cat,
+            generator_dog=self.generator_dog,
             discriminator_cat=self.discriminator_cat,
             discriminator_dog=self.discriminator_dog,
             generator_cat_optimizer=self.generator_cat_optimizer,
@@ -137,16 +137,16 @@ class VAE_pix2pix_model(Model):
                 training=True
             )
             cycled_cat = self.generator_cat(
-                fake_dog,
+                pred_dog,
                 training=True
             )
             # same_x and same_y are used for identity loss.
             same_dog = self.generator_dog(
-                pred_dog,
+                dog,
                 training=True
             )
             same_cat = self.generator_cat(
-                pred_cat,
+                cat,
                 training=True
             )
             disc_real_cat = self.discriminator_cat(
@@ -169,11 +169,11 @@ class VAE_pix2pix_model(Model):
             gen_dog_loss = generator_loss(disc_fake_dog)
             gen_cat_loss = generator_loss(disc_fake_cat)
             cycle_loss_dog = calc_cycle_loss()(
-                dog,
+                pred_dog,
                 cycled_dog
             )
             cycle_loss_cat = calc_cycle_loss()(
-                cat,
+                pred_cat,
                 cycled_cat
             )
             cycle_loss = cycle_loss_cat + cycle_loss_dog

@@ -1,2 +1,462 @@
 g-0-2
-Tue 04 Oct 2022 12:07:14 AM CDT
+Sun 09 Oct 2022 01:52:22 PM CDT
+2022-10-09 13:52:33.572126: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-10-09 13:52:35.794687: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22844 MB memory:  -> device: 0, name: NVIDIA TITAN RTX, pci bus id: 0000:18:00.0, compute capability: 7.5
+2022-10-09 13:52:35.803235: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1532] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 22844 MB memory:  -> device: 1, name: NVIDIA TITAN RTX, pci bus id: 0000:86:00.0, compute capability: 7.5
+2022-10-09 13:53:04.040735: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8302
+2022-10-09 13:53:04.751698: I tensorflow/core/platform/default/subprocess.cc:304] Start cannot spawn child process: No such file or directory
+Found 1469 files belonging to 1 classes.
+Found 1221 files belonging to 1 classes.
+Model cycleGAN
+Epoch 1
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   73270.2   1582.57     5.41334     5.34948
+
+Saving checkpoint  epoch 2
+
+Time taken for epoch 2 is 325.04732751846313 sec
+
+Epoch 2
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   69722.7   1592.52     5.45324     4.88052
+
+Saving checkpoint  epoch 3
+
+Time taken for epoch 3 is 321.9725215435028 sec
+
+Epoch 3
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   66513.3   1603.42     5.10684      4.7216
+
+Saving checkpoint  epoch 4
+
+Time taken for epoch 4 is 323.28214502334595 sec
+
+Epoch 4
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   63597.2   1612.83     5.33782     5.13222
+
+Saving checkpoint  epoch 5
+
+Time taken for epoch 5 is 324.15880942344666 sec
+
+Epoch 5
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   60931.1   1623.13     4.95658       4.898
+
+Saving checkpoint  epoch 6
+
+Time taken for epoch 6 is 323.75350761413574 sec
+
+Epoch 6
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   58486.7   1632.66     4.11549     3.47465
+
+Saving checkpoint  epoch 7
+
+Time taken for epoch 7 is 324.8054497241974 sec
+
+Epoch 7
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   56235.6   1642.25     4.50147      4.1358
+
+Saving checkpoint  epoch 8
+
+Time taken for epoch 8 is 323.9977674484253 sec
+
+Epoch 8
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   54158.2   1650.85      4.0996     3.80832
+
+Saving checkpoint  epoch 9
+
+Time taken for epoch 9 is 325.60665583610535 sec
+
+Epoch 9
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   52233.4   1658.36     5.01937     4.61893
+
+Saving checkpoint  epoch 10
+
+Time taken for epoch 10 is 324.50542974472046 sec
+
+Epoch 10
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   50444.9   1665.74     4.72862      4.7281
+
+Saving checkpoint  epoch 11
+
+Time taken for epoch 11 is 324.204758644104 sec
+
+Epoch 11
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   48779.5   1672.63     4.59239     4.47196
+
+Saving checkpoint  epoch 12
+
+Time taken for epoch 12 is 325.54008412361145 sec
+
+Epoch 12
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   47224.2   1679.54     4.59416     4.59768
+
+Saving checkpoint  epoch 13
+
+Time taken for epoch 13 is 326.19936203956604 sec
+
+Epoch 13
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219     45769   1686.17     4.05581     4.46957
+
+Saving checkpoint  epoch 14
+
+Time taken for epoch 14 is 324.12006092071533 sec
+
+Epoch 14
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   44403.9   1692.28     3.91757     3.79449
+
+Saving checkpoint  epoch 15
+
+Time taken for epoch 15 is 327.2288165092468 sec
+
+Epoch 15
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   43121.5   1697.44     4.98837     4.69952
+
+Saving checkpoint  epoch 16
+
+Time taken for epoch 16 is 324.70577454566956 sec
+
+Epoch 16
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   41914.1   1702.58      4.1021     3.73089
+
+Saving checkpoint  epoch 17
+
+Time taken for epoch 17 is 326.3035616874695 sec
+
+Epoch 17
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   40775.5    1706.9     3.41943     3.52408
+
+Saving checkpoint  epoch 18
+
+Time taken for epoch 18 is 326.1570374965668 sec
+
+Epoch 18
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   39700.3   1711.75     3.99622     4.39839
+
+Saving checkpoint  epoch 19
+
+Time taken for epoch 19 is 324.6506097316742 sec
+
+Epoch 19
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   38682.2   1715.95     4.35677     4.43856
+
+Saving checkpoint  epoch 20
+
+Time taken for epoch 20 is 325.5379581451416 sec
+
+Epoch 20
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   37717.7   1720.26      4.0016     3.81375
+
+Saving checkpoint  epoch 21
+
+Time taken for epoch 21 is 324.5005009174347 sec
+
+Epoch 21
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   36802.7   1723.81     3.78278     3.15697
+
+Saving checkpoint  epoch 22
+
+Time taken for epoch 22 is 325.33906745910645 sec
+
+Epoch 22
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   35932.8    1727.6     4.97216     4.70371
+
+Saving checkpoint  epoch 23
+
+Time taken for epoch 23 is 326.61268281936646 sec
+
+Epoch 23
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219     35105   1731.23     4.36665     3.98435
+
+Saving checkpoint  epoch 24
+
+Time taken for epoch 24 is 326.2922012805939 sec
+
+Epoch 24
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   34316.4   1734.42     4.07232     3.69117
+
+Saving checkpoint  epoch 25
+
+Time taken for epoch 25 is 325.27469182014465 sec
+
+Epoch 25
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   33564.6   1738.12     3.81533     3.92679
+
+Saving checkpoint  epoch 26
+
+Time taken for epoch 26 is 324.9597022533417 sec
+
+Epoch 26
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   32847.1    1741.4     2.82701     3.20829
+
+Saving checkpoint  epoch 27
+
+Time taken for epoch 27 is 324.92113995552063 sec
+
+Epoch 27
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   32161.1   1744.33     4.11205     4.16168
+
+Saving checkpoint  epoch 28
+
+Time taken for epoch 28 is 326.97700095176697 sec
+
+Epoch 28
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   31504.7   1747.29     4.40754      3.8942
+
+Saving checkpoint  epoch 29
+
+Time taken for epoch 29 is 325.0527696609497 sec
+
+Epoch 29
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   30875.7   1750.21     3.78999     3.74059
+
+Saving checkpoint  epoch 30
+
+Time taken for epoch 30 is 324.82297372817993 sec
+
+Epoch 30
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   30273.4   1753.03     3.73242     3.65838
+
+Saving checkpoint  epoch 31
+
+Time taken for epoch 31 is 327.1221351623535 sec
+
+Epoch 31
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   29695.3    1755.5     2.99906     3.42294
+
+Saving checkpoint  epoch 32
+
+Time taken for epoch 32 is 326.2290015220642 sec
+
+Epoch 32
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   29140.2   1758.12     3.20393     3.22045
+
+Saving checkpoint  epoch 33
+
+Time taken for epoch 33 is 324.6768493652344 sec
+
+Epoch 33
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   28606.9   1760.66     4.01651     3.31956
+
+Saving checkpoint  epoch 34
+
+Time taken for epoch 34 is 325.13209533691406 sec
+
+Epoch 34
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   28094.1   1762.91     3.14985     3.34001
+
+Saving checkpoint  epoch 35
+
+Time taken for epoch 35 is 327.50978088378906 sec
+
+Epoch 35
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   27600.5    1765.2      3.3437     3.58806
+
+Saving checkpoint  epoch 36
+
+Time taken for epoch 36 is 325.9335401058197 sec
+
+Epoch 36
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219     27125   1767.53     3.54317     3.45144
+
+Saving checkpoint  epoch 37
+
+Time taken for epoch 37 is 327.0112609863281 sec
+
+Epoch 37
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219     26667   1769.43     3.97023     3.69797
+
+Saving checkpoint  epoch 38
+
+Time taken for epoch 38 is 326.0611741542816 sec
+
+Epoch 38
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   26225.4   1771.24     3.72295     4.83346
+
+Saving checkpoint  epoch 39
+
+Time taken for epoch 39 is 324.3668050765991 sec
+
+Epoch 39
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   25798.9   1772.87     4.41444     4.51252
+
+Saving checkpoint  epoch 40
+
+Time taken for epoch 40 is 325.6042368412018 sec
+
+Epoch 40
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   25387.1   1774.82     3.74184     3.66663
+
+Saving checkpoint  epoch 41
+
+Time taken for epoch 41 is 324.40200448036194 sec
+
+Epoch 41
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   24989.3   1776.73     4.59887     4.17689
+
+Saving checkpoint  epoch 42
+
+Time taken for epoch 42 is 324.70663380622864 sec
+
+Epoch 42
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   24604.9   1778.46     3.96188     3.90039
+
+Saving checkpoint  epoch 43
+
+Time taken for epoch 43 is 326.50699281692505 sec
+
+Epoch 43
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   24233.1   1780.11     3.85171     4.35135
+
+Saving checkpoint  epoch 44
+
+Time taken for epoch 44 is 325.83642196655273 sec
+
+Epoch 44
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219     23873   1781.63     3.40603     4.08463
+
+Saving checkpoint  epoch 45
+
+Time taken for epoch 45 is 326.47627329826355 sec
+
+Epoch 45
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   23524.3   1783.18     2.90152     3.19151
+
+Saving checkpoint  epoch 46
+
+Time taken for epoch 46 is 324.6468894481659 sec
+
+Epoch 46
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   23186.4   1784.53     3.15947     3.59607
+
+Saving checkpoint  epoch 47
+
+Time taken for epoch 47 is 327.88768315315247 sec
+
+Epoch 47
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   22858.9   1786.18     3.50133     3.29635
+
+Saving checkpoint  epoch 48
+
+Time taken for epoch 48 is 325.07770586013794 sec
+
+Epoch 48
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   22541.2   1787.77     4.01658     3.38176
+
+Saving checkpoint  epoch 49
+
+Time taken for epoch 49 is 325.5614697933197 sec
+
+Epoch 49
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   22233.2   1788.97     3.99029     4.00076
+
+Saving checkpoint  epoch 50
+
+Time taken for epoch 50 is 325.71701431274414 sec
+
+Epoch 50
+        kl_dog    kl_cat    loss_cat    loss_dog
+----  --------  --------  ----------  ----------
+1219   21934.3   1790.32     3.82829     3.47775
+
+Saving checkpoint  epoch 51
+
+Time taken for epoch 51 is 325.08050203323364 sec
+
+Sun 09 Oct 2022 06:23:54 PM CDT

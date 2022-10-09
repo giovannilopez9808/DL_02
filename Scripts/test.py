@@ -23,7 +23,7 @@ model = VAE_pix2pix_model(params)
 dog, cat = list(dataset.train.take(1))[0]
 pred_dog = model.vae_dog(dog)
 gen_cat = model.generator_cat(pred_dog)
-same_dog  moodel.generator_dog(pred_dog)
+same_dog = model.generator_dog(pred_dog)
 pred_cat = model.vae_cat(cat)
 gen_dog = model.generator_dog(pred_cat)
 same_cat = model.generator_cat(pred_cat)
@@ -42,7 +42,7 @@ plot_image(axs[2],
 plot_image(axs[3],
            same_dog,
            "same dog")
-plot_images(axs[4],
+plot_image(axs[4],
             cat,
             "cat")
 plot_image(axs[5],
@@ -52,7 +52,7 @@ plot_image(axs[6],
            gen_dog,
            "dog generate")
 plot_image(axs[7],
-           same_dog,
+           same_cat,
            "same dog")
 plt.tight_layout(pad=2)
 filename = "train_cycleGAN.png"
@@ -63,11 +63,11 @@ plt.savefig(filename)
 dog, cat = list(dataset.test.take(1))[0]
 pred_dog = model.vae_dog(dog)
 gen_cat = model.generator_cat(pred_dog)
-same_dog  moodel.generator_dog(pred_dog)
+same_dog = model.generator_dog(pred_dog)
 pred_cat = model.vae_cat(cat)
 gen_dog = model.generator_dog(pred_cat)
 same_cat = model.generator_cat(pred_cat)
-fig, axs = plt.subplots(2, 3,
+fig, axs = plt.subplots(2, 4,
                         figsize=(15, 10))
 axs = axs.flatten()
 plot_image(axs[0],
@@ -82,7 +82,7 @@ plot_image(axs[2],
 plot_image(axs[3],
            same_dog,
            "same dog")
-plot_images(axs[4],
+plot_image(axs[4],
             cat,
             "cat")
 plot_image(axs[5],
@@ -92,7 +92,7 @@ plot_image(axs[6],
            gen_dog,
            "dog generate")
 plot_image(axs[7],
-           same_dog,
+           same_cat,
            "same dog")
 plt.tight_layout(pad=2)
 filename = "test_cycleGAN.png"

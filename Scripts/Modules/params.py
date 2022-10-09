@@ -19,6 +19,6 @@ def get_params() -> dict:
             "latent_dim": 600,
             "summary": False,
         },
-        "epochs": 1000,
+        "epochs": 50,
     }
     return params

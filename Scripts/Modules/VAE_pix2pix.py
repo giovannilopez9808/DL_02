@@ -108,9 +108,8 @@ class VAE_pix2pix_model(Model):
         )
         # if a checkpoint exists, restore the latest checkpoint.
         if self.checkpoint.latest_checkpoint:
-            print("aqui")
             ckpt.restore(self.checkpoint.latest_checkpoint)
-            print('Load cycleGAN model')
+            print('Model cycleGAN')
 
     @function
     def train_step(self,
@@ -144,6 +143,7 @@ class VAE_pix2pix_model(Model):
                 gauss_cat
             )
             vae_cat = self.vae_cat.decoder_model(z_cat)
+
             rc_loss = self.vae_cat.r_loss_factor * self.vae_cat.mae(
                 cat,
                 vae_cat
@@ -292,7 +292,7 @@ class VAE_pix2pix_model(Model):
                            epochs+1):
             start = time()
             print(f"Epoch {epoch}")
-            for i, (dog, cat) in dataset.train.take(10).enumerate():
+            for i, (dog, cat) in dataset.train.enumerate():
                 i = i.numpy()
                 history = self.train_step(dog,
                                           cat)

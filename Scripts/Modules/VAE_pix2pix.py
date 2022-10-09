@@ -1,4 +1,5 @@
 from tensorflow_examples.models.pix2pix import pix2pix
+from tensorflow.nn import compute_average_loss
 from keras.losses import BinaryCrossentropy
 from tensorflow.data import Dataset
 from keras.optimizers import Adam
@@ -13,12 +14,15 @@ from os.path import join
 from tensorflow import (
     GradientTape,
     reduce_mean,
+    reduce_sum,
     zeros_like,
     ones_like,
     function,
+    square,
+    exp
 )
-from .VAE2 import VAE2
 from time import time
+from .VAE import VAE
 from pandas import (
     DataFrame,
     concat
@@ -51,10 +55,10 @@ class VAE_pix2pix_model(Model):
         params_dog["dataset"]["type"] = "dog"
         params_cat = params.copy()
         params_cat["dataset"]["type"] = "cat"
-        self.vae_cat = VAE2(params_cat,
-                            "cat")
-        self.vae_dog = VAE2(params_dog,
-                            "dog")
+        self.vae_cat = VAE(params_cat,
+                           "cat")
+        self.vae_dog = VAE(params_dog,
+                           "dog")
         self.generator_cat = pix2pix.unet_generator(
             OUTPUT_CHANNELS,
             norm_type='instancenorm',
@@ -92,6 +96,8 @@ class VAE_pix2pix_model(Model):
         checkpoint_path = join(self.params["path checkpoint"],
                                "cycleGAN")
         ckpt = Checkpoint(
+            vae_dog=self.vae_dog,
+            vae_cat=self.vae_cat,
             generator_cat=self.generator_cat,
             generator_dog=self.generator_dog,
             discriminator_cat=self.discriminator_cat,
@@ -120,12 +126,43 @@ class VAE_pix2pix_model(Model):
         '''
         with GradientTape(persistent=True) as tape:
             # predict
-            pred_dog = self.vae_dog.vae(dog)
-            pred_cat = self.vae_cat.vae(cat)
-            # pred_dog = dog
-            # pred_cat = cat
+            # VAE dog
+            gauss_dog = self.vae_dog.encoder_model(dog)
+            z_dog, z_mean_dog, z_logvar_dog = self.vae_dog.sampler_model(
+                gauss_dog
+            )
+            vae_dog = self.vae_dog.decoder_model(z_dog)
+
+            rd_loss = self.vae_dog.r_loss_factor * self.vae_dog.mae(
+                dog,
+                vae_dog
+            )
+            kld_loss = 1 + z_logvar_dog - \
+                square(z_mean_dog) - exp(z_logvar_dog)
+            kld_loss = -0.5*kld_loss
+            kld_loss = reduce_mean(reduce_sum(kld_loss,
+                                              axis=1))
+            total_dog_loss = rd_loss + kld_loss
+
+            # VAE cat
+            gauss_cat = self.vae_dog.encoder_model(cat)
+            z_cat, z_mean_cat, z_logvar_cat = self.vae_cat.sampler_model(
+                gauss_cat
+            )
+            vae_cat = self.vae_cat.decoder_model(z_cat)
+            rc_loss = self.vae_cat.r_loss_factor * self.vae_cat.mae(
+                cat,
+                vae_cat
+            )
+            klc_loss = 1 + z_logvar_cat - \
+                square(z_mean_cat) - exp(z_logvar_cat)
+            klc_loss = -0.5*klc_loss
+            klc_loss = reduce_mean(reduce_sum(klc_loss,
+                                              axis=1))
+            total_cat_loss = rc_loss + klc_loss
+
             fake_cat = self.generator_cat(
-                pred_dog,
+                vae_dog,
                 training=True
             )
             cycled_dog = self.generator_dog(
@@ -133,11 +170,11 @@ class VAE_pix2pix_model(Model):
                 training=True
             )
             fake_dog = self.generator_dog(
-                pred_cat,
+                vae_cat,
                 training=True
             )
             cycled_cat = self.generator_cat(
-                pred_dog,
+                fake_dog,
                 training=True
             )
             # same_x and same_y are used for identity loss.
@@ -169,11 +206,11 @@ class VAE_pix2pix_model(Model):
             gen_dog_loss = generator_loss(disc_fake_dog)
             gen_cat_loss = generator_loss(disc_fake_cat)
             cycle_loss_dog = calc_cycle_loss()(
-                pred_dog,
+                dog,
                 cycled_dog
             )
             cycle_loss_cat = calc_cycle_loss()(
-                pred_cat,
+                cat,
                 cycled_cat
             )
             cycle_loss = cycle_loss_cat + cycle_loss_dog
@@ -190,6 +227,28 @@ class VAE_pix2pix_model(Model):
                                                  disc_fake_dog)
             disc_cat_loss = discriminator_loss()(disc_real_cat,
                                                  disc_fake_cat)
+        # Calculate the gradients for generator and discriminator
+        vae_dog_gradients = tape.gradient(total_dog_loss,
+                                          self.vae_dog.trainable_weights)
+        self.vae_dog.optimizer.apply_gradients(
+            zip(vae_dog_gradients,
+                self.vae_dog.trainable_weights)
+        )
+        self.vae_dog.total_loss_tracker.update_state(total_dog_loss)
+        self.vae_dog.reconstruction_loss_tracker.update_state(rd_loss)
+        self.vae_dog.kl_loss_tracker.update_state(kld_loss)
+
+        # Calculate the gradients for generator and discriminator
+        vae_cat_gradients = tape.gradient(total_cat_loss,
+                                          self.vae_cat.trainable_weights)
+        self.vae_cat.optimizer.apply_gradients(
+            zip(vae_cat_gradients,
+                self.vae_cat.trainable_weights)
+        )
+        self.vae_cat.total_loss_tracker.update_state(total_cat_loss)
+        self.vae_cat.reconstruction_loss_tracker.update_state(rc_loss)
+        self.vae_cat.kl_loss_tracker.update_state(klc_loss)
+
         generator_cat_gradients = tape.gradient(
             total_gen_cat_loss,
             self.generator_cat.trainable_variables
@@ -223,6 +282,8 @@ class VAE_pix2pix_model(Model):
                 self.discriminator_dog.trainable_variables)
         )
         loss_history = {
+            "kl_dog": self.vae_dog.kl_loss_tracker.result(),
+            "kl_cat": self.vae_cat.kl_loss_tracker.result(),
             "loss_cat": total_gen_cat_loss,
             "loss_dog": total_gen_dog_loss,
         }
@@ -314,12 +375,15 @@ class discriminator_loss(Loss):
         generated_loss = loss_obj(zeros_like(generated),
                                   generated)
         total_disc_loss = real_loss + generated_loss
-        return total_disc_loss * 0.5
+        total_disc_loss = total_disc_loss*0.5
+        total_disc_loss = compute_average_loss(total_disc_loss)
+        return total_disc_loss
 
 
 def generator_loss(generated):
     loss = loss_obj(ones_like(generated),
                     generated)
+    loss = compute_average_loss(loss)
     return loss
 
 

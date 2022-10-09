@@ -41,7 +41,7 @@ def plot_image(ax: plt.subplot,
 class VAE2(Model):
     def __init__(self,
                  params: dict,
-                 image_type:str="dog",
+                 image_type: str = "dog",
                  **kwargs) -> None:
         super(VAE2,
               self).__init__(**kwargs)
@@ -50,7 +50,7 @@ class VAE2(Model):
         self._create_checkpoint(image_type)
 
     def _create_checkpoint(self,
-                           image_type:str) -> None:
+                           image_type: str) -> None:
         checkpoint_path = join(self.params["path checkpoint"],
                                image_type)
         ckpt = Checkpoint(
@@ -123,7 +123,7 @@ class VAE2(Model):
                 history_epoch = concat([history_epoch,
                                         history])
             history_epoch = DataFrame(history_epoch.mean())
-            history_epoch.index=[epoch]
+            history_epoch.index = [epoch]
             history_all = concat([history_all,
                                   history_epoch])
             print(tabulate(history_epoch,

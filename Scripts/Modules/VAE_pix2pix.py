@@ -51,14 +51,8 @@ class VAE_pix2pix_model(Model):
         super(VAE_pix2pix_model,
               self).__init__(**kwargs)
         self.params = params
-        params_dog = params.copy()
-        params_dog["dataset"]["type"] = "dog"
-        params_cat = params.copy()
-        params_cat["dataset"]["type"] = "cat"
-        self.vae_cat = VAE(params_cat,
-                           "cat")
-        self.vae_dog = VAE(params_dog,
-                           "dog")
+        self.vae_cat = VAE(**params["VAE"])
+        self.vae_dog = VAE(**params["VAE"])
         self.generator_cat = pix2pix.unet_generator(
             OUTPUT_CHANNELS,
             norm_type='instancenorm',
@@ -145,7 +139,7 @@ class VAE_pix2pix_model(Model):
             total_dog_loss = rd_loss + kld_loss
 
             # VAE cat
-            gauss_cat = self.vae_dog.encoder_model(cat)
+            gauss_cat = self.vae_cat.encoder_model(cat)
             z_cat, z_mean_cat, z_logvar_cat = self.vae_cat.sampler_model(
                 gauss_cat
             )
@@ -298,7 +292,7 @@ class VAE_pix2pix_model(Model):
                            epochs+1):
             start = time()
             print(f"Epoch {epoch}")
-            for i, (dog, cat) in dataset.train.enumerate():
+            for i, (dog, cat) in dataset.train.take(10).enumerate():
                 i = i.numpy()
                 history = self.train_step(dog,
                                           cat)
@@ -315,7 +309,7 @@ class VAE_pix2pix_model(Model):
             fig, axs = plt.subplots(2, 4,
                                     figsize=(20, 10))
             axs = axs.flatten()
-            decoder_dog = self.vae_dog.vae(dog_test)
+            decoder_dog = self.vae_dog(dog_test)
             same_dog = self.generator_dog(decoder_dog)
             gen_cat = self.generator_cat(decoder_dog)
             plot_image(axs[0],
@@ -331,7 +325,7 @@ class VAE_pix2pix_model(Model):
                        same_dog,
                        "same dog")
 
-            decoder_cat = self.vae_cat.vae(cat_test)
+            decoder_cat = self.vae_cat(cat_test)
             gen_dog = self.generator_dog(decoder_cat)
             same_cat = self.generator_cat(decoder_cat)
             plot_image(axs[4],
@@ -376,14 +370,16 @@ class discriminator_loss(Loss):
                                   generated)
         total_disc_loss = real_loss + generated_loss
         total_disc_loss = total_disc_loss*0.5
-        total_disc_loss = compute_average_loss(total_disc_loss)
+        # total_disc_loss = compute_average_loss(total_disc_loss,
+                                               # global_batch_size=1)
         return total_disc_loss
 
 
 def generator_loss(generated):
     loss = loss_obj(ones_like(generated),
                     generated)
-    loss = compute_average_loss(loss)
+    # loss = compute_average_loss(loss,
+                                # global_batch_size=1)
     return loss
 
 
